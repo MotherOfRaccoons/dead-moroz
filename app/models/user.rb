@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :middle_name, length: {maximum: 50}
   validates :address, presence: true, length: {maximum: 50}
   validates :gender, presence: true
-  validates :beharior, presence: true, length: {minimum: 10, maximum: 280}
+  validates :behavior, presence: true, length: {minimum: 10, maximum: 280}
 
   enum gender: [:male, :female, :non_binary]
 end
