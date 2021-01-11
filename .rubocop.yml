@@ -1,0 +1,240 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+  CacheRootDirectory: 'tmp/cache'
+  Exclude:
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'public/**/*'
+    - 'config/initializers/rack-attack.rb'
+    - 'config/initializers/rollout_init.rb'
+
+Rails:
+  Enabled: true
+
+  EnforcedStyle: final_newline
+
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
+    - 'db/location_seeds.rb'
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 15
+
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 4
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/**/*'
+
+Style/RegexpLiteral:
+  Exclude:
+    - 'Guardfile'
+
+Metrics/MethodLength:
+  Max: 64
+
+Metrics/PerceivedComplexity:
+  Max: 11
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/ClassLength:
+  Max: 276
+  Exclude:
+    - 'lib/tasks/seeding/**/*'
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/tasks/seeding/**/*'
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['transaction', 'class_methods', 'included', 'big_biller_searchable', 'network_searchable', 'search', 'configure', 'draw', 'create_table']
+  Exclude:
+    - 'db/seeds.rb'
+    - 'spec/**/*'
+    - 'lib/tasks/**/*.rake'
+    - 'applications/**/app/views/**/*.jbuilder'
+    - 'lib/tasks/seeding/**/*'
+
+Style/ClassVars:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  ForbiddenMethods:
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - update_all
+    - update_attribute
+    - update_column
+    - update_columns
+    - update_counters
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - production
+    - profile
+    - staging
+    - test
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - 'db/**/*'
+  Enabled: false
+
+RSpec/FactoryBot/CreateList:
+  EnforcedStyle: n_times
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Rails/ApplicationMailer:
+  Enabled: false
+
+Rails/ApplicationController:
+  Enabled: false
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+# in future versions of rubocop this will
+# be disabled by default - match this for now
+# manually to avoid issues
+# https://g...content-available-to-author-only...b.com/rubocop-hq/rubocop/issues/8391
+Style/ArrayCoercion:
+  Enabled: false
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true
+
+Rails/FindById:
+  Enabled: true
+
+Rails/Inquiry:
+  Enabled: true
+
+Rails/MailerName:
+  Enabled: true
+
+Rails/MatchRoute:
+  Enabled: true
+
+Rails/NegateInclude:
+  Enabled: true
+
+Rails/Pluck:
+  Enabled: true
+
+# Not enabled for query tweaks/performance reasons
+Rails/PluckInWhere:
+  Enabled: false
+
+Rails/RenderInline:
+  Enabled: true
+
+Rails/RenderPlainText:
+  Enabled: true
+
+Rails/ShortI18n:
+  Enabled: true
+
+Rails/WhereExists:
+  Enabled: true
