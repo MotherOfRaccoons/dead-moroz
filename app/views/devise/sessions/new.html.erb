@@ -1,7 +1,7 @@
 <main class="form-signin">
   <h1 class="h3 fw-normal text-center py-4">Please sign in</h1>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_with(model: resource, scope: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.label :email, class: "visually-hidden" %>
     <%= f.email_field :email,
                       required: true,

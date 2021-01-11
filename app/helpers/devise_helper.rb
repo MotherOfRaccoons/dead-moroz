@@ -1,15 +1,6 @@
 module DeviseHelper
-  def devise_error_messages!
-    return '' if resource.errors.empty?
-
-    messages = resource.errors.full_messages.map do |message| 
-      message = <<-HTML
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          #{message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      HTML
-    end
-    messages.join.html_safe
+  def confirmed_email(resource)
+    resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
   end
 end
+

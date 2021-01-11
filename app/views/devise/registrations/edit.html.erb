@@ -3,9 +3,12 @@
     <h2>Edit profile</h2>
   </div>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "needs-validation", novalidate: true }) do |f| %>
+  <%= form_with(model: resource, 
+                scope: resource_name, 
+                url: registration_path(resource_name), 
+                html: { method: :put, class: "needs-validation", novalidate: true }) do |f| %>
 
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
     
     <div class="row g-3">
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -15,7 +18,7 @@
       <%= render "user_info", f: f, new_account: false %>
 
       <div class="col-12">
-        <%= f.label :current_password %><i>* (to confirm the changes)</i>
+        <%= f.label :current_password, "Current password* (to confirm the changes)" %>
         <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control',
                              minlength: 6, maxlength: 50, required: true %>
         <div class="invalid-feedback">
