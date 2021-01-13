@@ -4,7 +4,7 @@ FactoryBot.define do
     first_name { 'Boris' }
     last_name { 'Johnson' }
     birthdate { '1999-01-01' }
-    gender { 0 }
+    gender { 'female' }
     address { 'Addr' }
     behavior { "I've been a good boy" }
     password { 'password' }

@@ -1,4 +1,5 @@
 require 'simplecov'
+
 SimpleCov.start 'rails' do
   add_filter '/channels/'
   add_filter '/jobs/'
@@ -20,13 +21,6 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
-  # have no way to turn it off -- the option exists only for backwards
-  # compatibility in RSpec 3). It causes shared context metadata to be
-  # inherited by the metadata hash of host groups and examples, rather than
-  # triggering implicit auto-inclusion in groups with matching metadata.
-  config.shared_context_metadata_behavior = :apply_to_host_groups
-
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
   # is tagged with `:focus`, all examples get run. RSpec also provides
@@ -34,27 +28,12 @@ RSpec.configure do |config|
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
   config.filter_run_when_matching :focus
 
-  # Limits the available syntax to the non-monkey patched syntax that is
-  # recommended. For more details, see:
-  #   - http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/
-  #   - http://www.teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
-  #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
-  config.disable_monkey_patching!
+  # config.disable_monkey_patching!
 
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
   # individual spec file.
-  if config.files_to_run.one?
-    # Use the documentation formatter for detailed output,
-    # unless a formatter has already been configured
-    # (e.g. via a command-line flag).
-    config.default_formatter = 'doc'
-  end
-
-  # Print the 10 slowest examples and example groups at the
-  # end of the spec run, to help surface which specs are running
-  # particularly slow.
-  # config.profile_examples = 10
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing

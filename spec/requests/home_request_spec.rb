@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Homes', type: :request do
+# Temprorary spec for coverage, will get rid of it later
+RSpec.describe 'Homes' do
   it 'sign user in' do
     user = create(:user)
     sign_in user
