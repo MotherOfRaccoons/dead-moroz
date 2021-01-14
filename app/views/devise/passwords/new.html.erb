@@ -7,7 +7,7 @@
                 html: { class: "needs-validation", novalidate: true, method: :post }) do |f| 
   %>
 
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "shared/error_messages", resource: resource %>
 
     <%= f.label :email, class: "visually-hidden" %>
     <%= f.email_field :email,

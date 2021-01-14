@@ -6,6 +6,15 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navigation">
+
+      <ul class="navbar-nav ms-0">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'My gifts', user_gifts_path(current_user), class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <div class="navbar-text text-center mx-5">
