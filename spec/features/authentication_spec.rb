@@ -45,7 +45,7 @@ RSpec.describe 'Authentication', driver: :selenium_chrome, js: true do
     expect(page).to have_content 'Your account has been updated'
   end
 
-  it 'lets a signed in user to edit sign out' do
+  it 'lets a signed in user to sign out' do
     sign_in registered_user
     visit '/'
     click_link('Logout')

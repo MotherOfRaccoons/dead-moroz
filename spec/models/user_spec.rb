@@ -7,6 +7,10 @@ RSpec.describe User do
     expect(user).to be_valid
   end
 
+  describe '#email' do
+    specify { expect(build(:user)).to validate_uniqueness_of(:email).ignoring_case_sensitivity }
+  end
+
   describe '#first_name' do
     specify { expect(user).to validate_presence_of(:first_name) }
     specify { expect(user).to validate_length_of(:first_name).is_at_most(25) }
@@ -23,7 +27,7 @@ RSpec.describe User do
 
   describe '#address' do
     specify { expect(user).to validate_presence_of(:address) }
-    specify { expect(user).to validate_length_of(:address).is_at_most(50) }
+    specify { expect(user).to validate_length_of(:address).is_at_most(100) }
   end
 
   describe '#gender' do
