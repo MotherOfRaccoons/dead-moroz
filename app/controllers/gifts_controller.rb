@@ -1,25 +1,24 @@
 class GiftsController < ApplicationController
-  before_action :set_gift, only: [:show, :edit, :update, :destroy]
+  before_action :set_gift, only: %i[show edit update destroy]
+  before_action :set_user
 
   def index
-    @gifts = Gift.all
+    @gifts = @user.gifts
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    @gift = Gift.new
+    @gift = @user.gifts.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
-    @gift = current_user.gifts.new(gift_params)
-    @gift.added_by = User.find(params[:user_id])
+    @gift = @user.gifts.build(gift_params)
+    @gift.added_by = current_user
     if @gift.save
-      redirect_to [current_user, @gift], notice: 'Gift was successfully created.'
+      redirect_to user_gifts_path, notice: 'Gift was successfully created.'
     else
       render :new
     end
@@ -27,7 +26,7 @@ class GiftsController < ApplicationController
 
   def update
     if @gift.update(gift_params)
-      redirect_to @gift, notice: 'Gift was successfully updated.'
+      redirect_to [@user, @gift], notice: 'Gift was successfully updated.'
     else
       render :edit
     end
@@ -35,15 +34,20 @@ class GiftsController < ApplicationController
 
   def destroy
     @gift.destroy
-    redirect_to gifts_url, notice: 'Gift was successfully destroyed.'
+    redirect_to user_gifts_url, notice: 'Gift was successfully removed.'
   end
 
   private
-    def set_gift
-      @gift = Gift.find(params[:id])
-    end
 
-    def gift_params
-      params.require(:gift).permit(:title)
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_gift
+    @gift = Gift.find(params[:id])
+  end
+
+  def gift_params
+    params.require(:gift).permit(:title, :description)
+  end
 end
