@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   enum gender: { male: 0, female: 1, non_binary: 2 }
 
-  has_many :gifts, class_name: 'Gift', foreign_key: 'recipient_id'
-  has_many :gifts_added, class_name: 'Gift', foreign_key: 'added_by_id'
+  has_many :gifts,       class_name: 'Gift', foreign_key: 'recipient_id', dependent: :destroy
+  has_many :gifts_added, class_name: 'Gift', foreign_key: 'added_by_id',  dependent: :nullify
 
   validates :first_name,  presence: true, length: { maximum: 25 }
   validates :last_name,   presence: true, length: { maximum: 25 }

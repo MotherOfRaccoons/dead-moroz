@@ -1,7 +1,7 @@
 <div class="row g-3">
   <div class="col-12">
     <div class="form-floating">
-      <%= form.text_field :title, autofocus: true, class: "form-control", placeholder: "Title", required: true %>
+      <%= form.text_field :title, autofocus: true, class: "form-control", placeholder: "Title", required: true, maxlength: 50 %>
       <%= form.label :title, "Title" %>
       <div class="invalid-feedback">
         Title can't be blank.
@@ -10,7 +10,7 @@
   </div>
 
   <div class="col-12">
-    <%= form.text_area :description, class: 'form-control mb-3', placeholder: "Describe a gift (Optional)." %>
+    <%= form.text_area :description, class: 'form-control mb-3', placeholder: "Describe a gift (Optional).", maxlength: 100 %>
   </div>
 
     <div class="invalid-feedback">
