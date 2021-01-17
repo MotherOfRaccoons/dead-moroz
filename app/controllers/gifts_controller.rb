@@ -1,6 +1,6 @@
 class GiftsController < ApplicationController
   before_action :set_gift, only: %i[show edit update destroy]
-  before_action :set_user
+  before_action :set_user, except: %i[destroy]
 
   def index
     @gifts = @user.gifts
