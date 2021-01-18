@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Authentication', driver: :selenium_chrome, js: true do
+RSpec.describe 'Authentication', driver: :selenium_chrome_headless, js: true do
   let(:user) { build_stubbed(:user) }
   let(:registered_user) { create(:user) }
 
