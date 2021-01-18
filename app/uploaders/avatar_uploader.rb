@@ -1,12 +1,9 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  include DefaultUploader
 
   def store_dir
     "uploads/#{Rails.env}/#{model.class.to_s.underscore}/#{model.id}"
-  end
-
-  def cache_dir
-    Rails.root.join('tmp/uploads')
   end
 
   def default_url(*_args)
@@ -18,20 +15,5 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   version :thumb do
     process resize_to_fill: [50, 50]
-  end
-
-  def extension_whitelist
-    %w[jpg jpeg png]
-  end
-
-  def filename
-    "#{secure_token}.#{file.extension}" if original_filename.present?
-  end
-
-  protected
-
-  def secure_token
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 end

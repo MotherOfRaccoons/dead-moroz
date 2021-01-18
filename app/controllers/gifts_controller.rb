@@ -6,19 +6,30 @@ class GiftsController < ApplicationController
     @gifts = @user.gifts
   end
 
-  def show; end
+  def show
+    @images = @gift.images.all
+    @image = @gift.images.build
+  end
 
   def new
     @gift = @user.gifts.build
+    @gift.images.build
   end
 
   def edit; end
 
   def create
-    @gift = @user.gifts.build(gift_params)
+    @gift = @user.gifts.build(title: gift_params[:title], description: gift_params[:description])
     @gift.added_by = current_user
     if @gift.save
-      redirect_to user_gifts_path, notice: 'Gift was successfully created.'
+      if gift_params[:images_attributes].present?
+        Image.transaction do
+          gift_params[:images_attributes]['0']['image'].each do |image|
+            @gift.images.create(image: image)
+          end
+        end
+      end
+      redirect_to user_gifts_path, notice: 'Gift was successfully created.', alert: @gift.errors.messages[:images][0]
     else
       render :new
     end
@@ -48,6 +59,6 @@ class GiftsController < ApplicationController
   end
 
   def gift_params
-    params.require(:gift).permit(:title, :description)
+    params.require(:gift).permit(:title, :description, images_attributes: [image: []])
   end
 end

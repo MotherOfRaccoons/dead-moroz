@@ -12,4 +12,23 @@
       <p class="card-text"><%= @gift.description %></p>
     </div>
   <% end %>
+
+  <div class="row">
+    <% @images.each do |image| %>
+      <div class="col text-center">
+        <%= image_tag image.image.url, size: '300x300', class: 'm-1' %>
+        <%= link_to '',  
+                    user_gift_images_path(@user, @gift, id: image.id),  
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    type: 'button',
+                    class: 'btn-close align-top' %>
+      </div>
+    <% end %>   
+  </div>
+
+  <%= form_with model: @image, url: user_gift_images_path(@user, @gift), method: :post do |form| %>
+    <%= form.file_field :image, class: 'form-control mt-3' %>
+    <%= form.submit "Add image", class: 'btn btn-outline-primary btn-lg w-100' %>
+  <% end %>
 </div>

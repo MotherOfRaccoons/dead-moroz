@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Gifts', type: :request do
   let(:user) { create(:user) }
   let(:gift_attrs) { attributes_for(:gift) }
-  let(:existing_gift) { create(:gift, recipient: user) }
+  let(:existing_gift) { create(:gift) }
 
   before { sign_in user }
 
@@ -22,8 +22,12 @@ RSpec.describe 'Gifts', type: :request do
   end
 
   describe 'POST gifts#create' do
+    let(:image) { create(:image) }
+
     it 'creates a gift with valid parameters' do
-      post "/users/#{user.id}/gifts", params: { gift: { title: gift_attrs[:title], description: gift_attrs[:description] } }
+      post "/users/#{user.id}/gifts", params: { gift: { title: gift_attrs[:title],
+                                                        description: gift_attrs[:description],
+                                                        images_attributes: { '0': { image: [image] } } } }
       expect(response).to redirect_to action: :index
     end
 
