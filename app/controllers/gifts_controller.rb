@@ -1,9 +1,8 @@
 class GiftsController < ApplicationController
-  before_action :set_user, except: %i[destroy]
-  helper_method :gift
+  helper_method :user, :gift
 
   def index
-    @gifts = @user.gifts
+    @gifts = user.gifts
   end
 
   def show
@@ -12,7 +11,7 @@ class GiftsController < ApplicationController
   end
 
   def new
-    @gift = @user.gifts.build
+    @gift = user.gifts.build
     @gift.images.build
   end
 
@@ -21,7 +20,7 @@ class GiftsController < ApplicationController
   end
 
   def create
-    @gift = @user.gifts.build(title: gift_params[:title], description: gift_params[:description], added_by: current_user)
+    @gift = user.gifts.build(title: gift_params[:title], description: gift_params[:description], added_by: current_user)
     if @gift.save
       create_images if gift_params[:images_attributes].present?
       redirect_to user_gifts_path, notice: 'Gift was successfully created.', alert: @gift.errors.messages[:images][0]
@@ -32,7 +31,7 @@ class GiftsController < ApplicationController
 
   def update
     if gift.update(gift_params)
-      redirect_to [@user, gift], notice: 'Gift was successfully updated.'
+      redirect_to [user, gift], notice: 'Gift was successfully updated.'
     else
       render :edit
     end
@@ -45,8 +44,8 @@ class GiftsController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
+  def user
+    user ||= User.find(params[:user_id])
   end
 
   def gift

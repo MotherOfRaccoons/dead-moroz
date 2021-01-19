@@ -1,5 +1,5 @@
 <div class="py-3 text-center">
-  <h2><%= @user.first_name %>'s Gifts</h2>
+  <h2><%= user.first_name %>'s Gifts</h2>
   <%= link_to 'New gift', new_user_gift_path, class: "btn btn-success align-text-bottom" %>
 </div>
 
@@ -7,10 +7,10 @@
   <div class="card my-2">
     <div class="card-header d-flex justify-content-between position-relative">
       <h5 class="card-title"><%= gift.title %></h5>
-      <%= link_to '', [@user, gift], class: 'stretched-link' %>
+      <%= link_to '', [user, gift], class: 'stretched-link' %>
       <div>
-        <%= link_to 'Edit', edit_user_gift_path(@user, gift), class: 'btn btn-primary' %>
-        <%= link_to 'Remove', [@user, gift], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <%= link_to 'Edit', edit_user_gift_path(user, gift), class: 'btn btn-primary' %>
+        <%= link_to 'Remove', [user, gift], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       </div>
     </div>
     <% unless gift.description.blank? %>
