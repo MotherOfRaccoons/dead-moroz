@@ -7,7 +7,7 @@
                 html: { class: "needs-validation", novalidate: true, method: :put }) do |f| 
   %>
 
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render "shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
 
     <div class="col-12">

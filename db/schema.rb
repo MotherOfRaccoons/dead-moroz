@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_111539) do
+ActiveRecord::Schema.define(version: 2021_01_18_015905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gifts", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "recipient_id", null: false
+    t.bigint "added_by_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["added_by_id"], name: "index_gifts_on_added_by_id"
+    t.index ["recipient_id"], name: "index_gifts_on_recipient_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "image"
+    t.bigint "gift_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gift_id"], name: "index_images_on_gift_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", limit: 25, null: false
@@ -30,8 +49,12 @@ ActiveRecord::Schema.define(version: 2021_01_15_111539) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "gifts", "users", column: "added_by_id"
+  add_foreign_key "gifts", "users", column: "recipient_id"
+  add_foreign_key "images", "gifts"
 end

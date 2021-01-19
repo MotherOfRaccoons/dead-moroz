@@ -238,3 +238,6 @@ Rails/ShortI18n:
 
 Rails/WhereExists:
   Enabled: true
+
+RSpec/ExampleLength:
+  Enabled: false

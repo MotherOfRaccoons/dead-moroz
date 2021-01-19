@@ -1,0 +1,13 @@
+<%= render 'shared/error_messages', resource: gift %>
+
+<main class="gift-form">
+  <h1 class="h3 fw-normal text-center py-4">Editing Gift</h1>
+
+  <%= form_with model: @gift, url: [user, gift], html: { class: "needs-validation", novalidate: true } do |form| %>
+    <%= render 'gift_info', form: form %>
+
+    <%= form.submit "Save", class: 'btn btn-outline-success btn-lg w-100' %>
+  <% end %>
+</main>
+
+<%= javascript_pack_tag 'validation' %>

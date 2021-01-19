@@ -6,16 +6,26 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navigation">
+
+      <ul class="navbar-nav ms-0">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'My gifts', user_gifts_path(current_user), class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
-          <div class="navbar-text text-center mx-5">
+          <div class="navbar-text mx-5">
+            <%= image_tag current_user.avatar.url(:thumb), size: '50x50', class: 'img-thumbnail', id: 'avatar-image' %>
             Welcome, <%= current_user.first_name %>
           </div>
           <li class="nav-item">
-            <%= link_to 'Edit profile', edit_user_registration_path, class: "nav-link" %>
+            <%= link_to 'Edit profile', edit_user_registration_path, class: "nav-link mt-2" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Logout', destroy_user_session_path, class: "nav-link" %>
+            <%= link_to 'Logout', destroy_user_session_path, class: "nav-link mt-2" %>
           </li>
         <% else %>
           <li class="nav-item">
