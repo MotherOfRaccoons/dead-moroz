@@ -25,9 +25,13 @@ RSpec.describe 'Gifts', type: :request do
     let(:image) { create(:image) }
 
     it 'creates a gift with valid parameters' do
-      post "/users/#{user.id}/gifts", params: { gift: { title: gift_attrs[:title],
-                                                        description: gift_attrs[:description],
-                                                        images_attributes: { '0': { image: [image] } } } }
+      post "/users/#{user.id}/gifts", params: {
+        gift: {
+          title: gift_attrs[:title],
+          description: gift_attrs[:description],
+          images_attributes: { '0': { image: [image] } }
+        }
+      }
       expect(response).to redirect_to action: :index
     end
 

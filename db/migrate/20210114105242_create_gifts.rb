@@ -4,7 +4,7 @@ class CreateGifts < ActiveRecord::Migration[6.1]
       t.string :title, null: false
       t.text :description
       t.belongs_to :recipient, null: false
-      t.belongs_to :added_by, null: false
+      t.belongs_to :added_by, null: true
 
       t.timestamps
     end

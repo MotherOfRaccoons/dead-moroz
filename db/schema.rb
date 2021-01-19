@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_015905) do
     t.string "title", null: false
     t.text "description"
     t.bigint "recipient_id", null: false
-    t.integer "added_by_id"
+    t.bigint "added_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["added_by_id"], name: "index_gifts_on_added_by_id"

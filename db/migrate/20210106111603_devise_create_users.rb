@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :middle_name,        limit: 25
       t.date :birthdate
       t.integer :gender
-      t.string :address,            null: false, limit: 50
+      t.string :address,            null: false, limit: 100
       t.text :behavior,             limit: 300
 
       ## Database authenticatable

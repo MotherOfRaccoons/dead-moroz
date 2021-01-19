@@ -9,8 +9,6 @@ require 'capybara/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
-# Checks for pending migrations and applies them before tests are run.
-# If you are not using ActiveRecord, you can remove these lines.
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -18,7 +16,14 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-Capybara.server = :puma, { Silent: true } # To clean up your test output
+Capybara.server = :puma, { Silent: true }
+
+if ENV['FORCE_CHROME']
+  Capybara.default_driver     = :selenium_chrome
+  Capybara.javascript_driver  = :selenium_chrome
+else
+  Capybara.javascript_driver  = :selenium_chrome_headless
+end
 
 RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request

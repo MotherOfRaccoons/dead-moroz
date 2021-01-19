@@ -8,8 +8,8 @@ default: &default
 development:
   <<: *default
   database: dead_moroz_development
-  username: <%= Rails.application.credentials.db[:database_username] %>
-  password: <%= Rails.application.credentials.db[:database_password] %>
+  username: <%= ENV.fetch('DEAD_MOROZ_DATABASE_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('DEAD_MOROZ_DATABASE_PASSWORD', '12345') %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

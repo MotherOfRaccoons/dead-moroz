@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Gifts', type: :feature, driver: :selenium_chrome_headless, js: true do
+RSpec.describe 'Gifts', type: :feature, js: true do
   let(:user) { create(:user) }
   let(:gift_attrs) { attributes_for(:gift) }
 
