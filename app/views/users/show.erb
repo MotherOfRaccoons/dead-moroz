@@ -72,3 +72,21 @@
 <div class="col-12 my-2">
   <%= link_to 'Gifts', user_gifts_path(@user), class: 'btn btn-outline-primary w-100' %>
 </div>
+
+<hr>
+<% @user.reviews_on.each do |review| %>
+  <p>
+    <%= review.body %>
+    <%= link_to '[x]', user_reviews_path(@user.id, id: review.id), method: :delete, data: { confirm: "Are you sure?" } %>
+  </p>
+<% end %>
+<hr> 
+
+<h2>Add a review: </h2>
+<%= form_with model: [@user, @user.reviews_on.build] do |form| %>
+  <p>
+    <%= form.label :body, 'Review body' %>
+    <%= form.text_area :body %>
+  </p>
+  <%= form.submit %>
+<% end %>

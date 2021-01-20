@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :gifts do
-      resource :images, only: %i[destroy create]
+      resource :images, only: %i[create destroy]
     end
+    resource :reviews, only: %i[create destroy]
   end
 end
