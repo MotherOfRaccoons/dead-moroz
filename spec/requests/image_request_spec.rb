@@ -13,6 +13,11 @@ RSpec.describe 'Images', type: :request do
       post "/users/#{user.id}/gifts/#{gift.id}/images", params: { image: { image: new_image } }
       expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
     end
+
+    it 'fails when image is not provided' do
+      post "/users/#{user.id}/gifts/#{gift.id}/images"
+      expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+    end
   end
 
   describe 'DELETE images#destroy' do

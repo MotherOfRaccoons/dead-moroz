@@ -11,6 +11,18 @@ class User < ApplicationRecord
   validates :gender,      presence: true
   validates :behavior,    presence: true, length: { minimum: 10, maximum: 280 }
 
+  def male?
+    gender == 'male'
+  end
+
+  def female?
+    gender == 'female'
+  end
+
+  def non_binary?
+    gender == 'non_binary'
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

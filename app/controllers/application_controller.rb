@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  SIGN_UP_PERMITTED_KEYS = %i[first_name last_name middle_name birthdate gender address behavior avatar avatar_cache]
+  SIGN_UP_PERMITTED_KEYS = %i[first_name last_name middle_name birthdate gender address behavior avatar avatar_cache].freeze
   ACCOUNT_UPDATE_PERMITTED_KEYS = SIGN_UP_PERMITTED_KEYS + [:remove_avatar]
 
   before_action :configure_permitted_parameters, if: :devise_controller?

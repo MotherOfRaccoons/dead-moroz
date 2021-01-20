@@ -18,7 +18,7 @@ RSpec.describe 'Gifts', type: :feature, js: true do
   end
 
   context 'when exists' do
-    subject!(:gift) { create(:gift, recipient: user) }
+    subject!(:gift) { create(:gift, recipient: user, added_by: user) }
 
     it 'can be edited' do
       visit "users/#{user.id}/gifts"
