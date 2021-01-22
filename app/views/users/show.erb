@@ -65,8 +65,15 @@
 </div>
 
 <div class="col-12 my-2">
+  
   <%= label_tag 'behavior' %>
-  <%= text_area_tag 'address', @user.behavior, readonly: true, class: "form-control" %>
+  <%= text_area_tag 'behavior', @user.behavior, readonly: true, class: "form-control mt-1" %>
+
+  <%= link_to "To finnish", @user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
+  <div id="translation-spinner" class="spinner-border text-primary m-2 d-none" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  
 </div>
 
 <div class="col-12 my-2">

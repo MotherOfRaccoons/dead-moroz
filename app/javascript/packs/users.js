@@ -18,7 +18,7 @@ $(function(){
 
   // Stars
   $('#stars li').on('mouseover', function() {
-    var onStar = parseInt($(this).data('value'), 10);
+    let onStar = parseInt($(this).data('value'), 10);
     $(this).parent().children('li.star').each(function (i){
       if (i < onStar) {
         $(this).addClass('hover');
@@ -33,7 +33,7 @@ $(function(){
   });
 
   $('#stars li').on('click', function(){
-    var onStar = parseInt($(this).data('value'), 10);
+    let onStar = parseInt($(this).data('value'), 10);
     $(this).data('test', 69)
 
     $('li.star').each(function(i) {
@@ -43,7 +43,13 @@ $(function(){
       }
     });
   
-    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+    let ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
     $('#rating').val(ratingValue)
   });
+
+  $('#translate').click(function() {
+    $(this).addClass('d-none')
+    $('#translation-spinner').removeClass('d-none')
+  })
+
 });
