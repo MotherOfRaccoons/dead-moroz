@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :reviews_on,  class_name: 'Review', foreign_key: 'reviewee_id', dependent: :destroy, inverse_of: :reviewee
   has_many :reviews_by,  class_name: 'Review', foreign_key: 'reviewer_id', dependent: :nullify, inverse_of: :reviewer
 
+  has_many :assessments_on,  class_name: 'Assessment', foreign_key: 'target_id', dependent: :destroy, inverse_of: :target
+  has_many :assessments_by,  class_name: 'Assessment', foreign_key: 'author_id', dependent: :nullify, inverse_of: :author
+
   validates :first_name,  presence: true, length: { maximum: 25 }
   validates :last_name,   presence: true, length: { maximum: 25 }
   validates :middle_name, length: { maximum: 25 }

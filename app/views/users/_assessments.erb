@@ -1,0 +1,64 @@
+<hr>
+<h2 class="fw-bold">Your assessment:</h2>
+<% if assessment.present? %>
+  <div class="card m-1 fs-5">
+    <div class="card-header">
+      <div class="rating-stars">
+        <ul id='show-rating' class='m-0'>
+          <% 1.upto(assessment.value) do |i| %>
+            <li class='star' title=<%= i %> data-value=<%= i %>>
+              <i class='fa fa-star fa-fw inactive'></i>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <%= link_to 'Remove', 
+                  user_assessments_path(user.id, id: assessment.id), 
+                  method: :delete, 
+                  data: { confirm: "Are you sure?" },
+                  class: 'btn btn-danger position-absolute top-0 end-0 m-1' %>
+    </div>
+    <div class="card-body">
+      <p><%= assessment.comment %></p>
+      <footer class="blockquote-footer m-0">
+        Added by <%= link_to assessment.author.first_name, assessment.author %> on <%= assessment.created_at.to_date %>
+      </footer>
+    </div>
+  </div>
+<% else %>
+  <%= button_tag 'Assess a user', 'data-bs-toggle': 'modal', 'data-bs-target': '#assessment-modal', class: 'btn btn-primary mb-3' %>
+<% end %>
+
+<div class="modal fade modal-centered" id="assessment-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Assessment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <%= form_with model: [user, user.assessments_on.build], class: "needs-validation", html: { novalidate: true } do |form| %>
+        <div class="modal-body">
+          <%= form.hidden_field :value, id: 'rating', class: 'form-control' %>
+          <div class='rating-stars text-center'>
+            <ul id='stars'>
+              <% 1.upto(10) do |i| %>
+                <li class='star' title=<%= i %> data-value=<%= i %>>
+                  <i class='fa fa-star fa-fw active'></i>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <%= form.text_area :comment, id: 'assessment-comment', class: 'form-control', required: true, minlength: 5, maxlength: 280 %>
+          <div class="invalid-feedback">
+            Assessment comment has to be 5 to 280 characters long.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= form.submit class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

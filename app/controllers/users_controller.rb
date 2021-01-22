@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(user_params[:id])
+    @assessment = @user.assessments_on.find_by(author: current_user)
   end
 
   private

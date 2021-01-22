@@ -1,0 +1,25 @@
+.rating-stars ul {
+  list-style-type:none;
+  padding: 0;
+  > li.star {
+    display: inline-block;
+    padding: 0;
+    > i.fa {
+      font-size: 2em;
+      color: #ccc;
+    }
+  }
+
+  > li.star.hover > i.fa {
+    color: #FFCC36;
+  }
+
+  > li.star.selected > i.fa{
+      color: #FF912C;
+  }
+}
+
+#show-rating li.star i.fa {
+  font-size: 1.5em;
+  color: #FF912C;
+}

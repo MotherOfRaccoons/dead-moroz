@@ -7,5 +7,6 @@ Rails.application.routes.draw do
       resource :images, only: %i[create destroy]
     end
     resource :reviews, only: %i[create destroy]
+    resource :assessments, only: %i[create destroy]
   end
 end
