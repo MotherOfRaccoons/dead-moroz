@@ -8,13 +8,17 @@ RSpec.describe 'Assessments', type: :request do
   describe 'POST assessment#create' do
     subject(:assessment_attrs) { attributes_for(:assessment) }
 
-    it 'creates an assessment' do
-      post "/users/#{user.id}/assessments/", params: {
+    let(:valid_assessment_params) do
+      {
         assessment: {
           value: assessment_attrs[:value],
           body: assessment_attrs[:comment]
         }
       }
+    end
+
+    it 'creates an assessment' do
+      post user_assessments_path(user), params: valid_assessment_params
       expect(response).to redirect_to user
     end
   end
@@ -23,7 +27,7 @@ RSpec.describe 'Assessments', type: :request do
     subject!(:existing_assessment) { create(:assessment) }
 
     it 'deletes an existing assessment' do
-      delete "/users/#{user.id}/assessments", params: { id: existing_assessment.id }
+      delete user_assessments_path(user), params: { id: existing_assessment.id }
       expect(response).to redirect_to user
     end
   end

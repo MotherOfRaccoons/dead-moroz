@@ -1,19 +1,22 @@
 $(function(){
   $('#review-modal').on('shown.bs.modal', function() {
     $(this).find('#review-body').focus();
-  }).on('hidden.bs.modal', function() {
+  });
+
+  $('#review-modal').on('hidden.bs.modal', function() {
     $(this).find('#review-body').val('');
   });
 
   $('#assessment-modal').on('shown.bs.modal', function() {
     $(this).find('#assessment-comment').focus();
-  }).on('hidden.bs.modal', function() {
+  });
+
+  $('#assessment-modal').on('hidden.bs.modal', function() {
     $(this).find('#assessment-comment').val('');
 
     $('#stars li.star').each(function(i) {
       $(this).removeClass('selected');
     });
-
   });
 
   // Stars
@@ -26,7 +29,9 @@ $(function(){
         $(this).removeClass('hover');
       }
     });
-  }).on('mouseout', function(){
+  });
+
+  $('#stars li').on('mouseout', function(){
     $('li.star').each(function(){
       $(this).removeClass('hover');
     });

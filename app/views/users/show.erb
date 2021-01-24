@@ -1,12 +1,12 @@
 <div class="py-3 text-center">
-  <h2><%= @user.first_name %>'s profile</h2>
+  <h2><%= user.first_name %>'s profile</h2>
 </div>
 
 <div class="col-12">
   <div class="row">
     <div class="col-3">
       <div class="text-center position-relative">
-        <%= image_tag @user.avatar.url, size: '200x200', class: 'img-thumbnail', id: 'avatar-image', alt: 'Avatar' %>
+        <%= image_tag user.avatar.url, size: '200x200', class: 'img-thumbnail', id: 'avatar-image', alt: 'Avatar' %>
       </div>
     </div>
 
@@ -14,43 +14,43 @@
       <div class="row my-2">
         <div class="col-4">
           <%= label_tag 'first_name' %>
-          <%= text_field_tag 'first_name', @user.first_name, readonly: true, class: "form-control" %>
+          <%= text_field_tag 'first_name', user.first_name, readonly: true, class: "form-control" %>
         </div>
 
         <div class="col-4">
           <%= label_tag 'last_name' %>
-          <%= text_field_tag 'last_name', @user.last_name, readonly: true, class: "form-control" %>
+          <%= text_field_tag 'last_name', user.last_name, readonly: true, class: "form-control" %>
         </div>
 
         <div class="col-4">
           <%= label_tag 'middle_name' %>
-          <%= text_field_tag 'middle_name', @user.middle_name, readonly: true, class: "form-control" %>
+          <%= text_field_tag 'middle_name', user.middle_name, readonly: true, class: "form-control" %>
         </div>
       </div>
 
       <div class="row my-2">
         <div class="col-12">
           <%= label_tag 'email' %>
-          <%= text_field_tag 'email', @user.email, readonly: true, class: "form-control" %>
+          <%= text_field_tag 'email', user.email, readonly: true, class: "form-control" %>
         </div>
       </div>      
 
       <div class="row my-2">
         <div class="col-6">
           <%= label_tag 'birthdate' %>
-          <%= text_field_tag 'birthdate', @user.birthdate, readonly: true, class: "form-control" %>
+          <%= text_field_tag 'birthdate', user.birthdate, readonly: true, class: "form-control" %>
         </div>
 
         <div class="col-6">
           <div class="">Gender</div>
           <div class="btn-group btn-group-toggle w-100 my-2" role="group">
-            <%= radio_button_tag 'gender', 'male', @user.male?, class: "btn-check", disabled: true %>
+            <%= radio_button_tag 'gender', 'male', user.male?, class: "btn-check", disabled: true %>
             <%= label_tag 'gender_male', 'Male', class: "btn btn-outline-primary" %>
 
-            <%= radio_button_tag 'gender', 'female', @user.female?, class: "btn-check", disabled: true %>
+            <%= radio_button_tag 'gender', 'female', user.female?, class: "btn-check", disabled: true %>
             <%= label_tag 'gender', "Female", class: "btn btn-outline-primary" %>
 
-            <%= radio_button_tag 'gender', 'non_binary', @user.non_binary?, class: "btn-check", disabled: true %>
+            <%= radio_button_tag 'gender', 'non_binary', user.non_binary?, class: "btn-check", disabled: true %>
             <%= label_tag 'gender', "Other", class: "btn btn-outline-primary" %>
           </div>
         </div>
@@ -61,15 +61,15 @@
 
 <div class="col-12 my-2">
   <%= label_tag 'address' %>
-  <%= text_field_tag 'address', @user.address, readonly: true, class: "form-control" %>
+  <%= text_field_tag 'address', user.address, readonly: true, class: "form-control" %>
 </div>
 
 <div class="col-12 my-2">
   
   <%= label_tag 'behavior' %>
-  <%= text_area_tag 'behavior', @user.behavior, readonly: true, class: "form-control mt-1" %>
+  <%= text_area_tag 'behavior', user.behavior, readonly: true, class: "form-control mt-1" %>
 
-  <%= link_to "To finnish", @user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
+  <%= link_to "To finnish", user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
   <div id="translation-spinner" class="spinner-border text-primary m-2 d-none" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
@@ -77,11 +77,11 @@
 </div>
 
 <div class="col-12 my-2">
-  <%= link_to 'Gifts', user_gifts_path(@user), class: 'btn btn-outline-primary w-100' %>
+  <%= link_to 'Gifts', user_gifts_path(user), class: 'btn btn-outline-primary w-100' %>
 </div>
 
-<%= render 'assessments', user: @user, assessment: @assessment %>
-<%= render 'reviews', user: @user %>
+<%= render 'assessments', user: user, assessment: @assessment %>
+<%= render 'reviews', user: user %>
 
 <%= javascript_pack_tag 'users' %>
 <%= javascript_pack_tag 'validation' %>

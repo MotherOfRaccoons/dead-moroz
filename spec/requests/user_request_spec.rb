@@ -7,14 +7,14 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET users#index' do
     it 'renders an index page' do
-      get '/users'
+      get users_path
       expect(response).to render_template :index
     end
   end
 
   describe 'GET users#show' do
     it 'renders a user page' do
-      get "/users/#{user.id}"
+      get user_path(user)
       expect(response).to render_template :show
     end
   end

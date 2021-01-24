@@ -1,12 +1,13 @@
 class AssessmentsController < ApplicationController
+  helper_method :user
+
   def create
-    @user = User.find(params[:user_id])
-    @assessment = @user.assessments_on.create(
+    @assessment = user.assessments_on.create(
       value: asssessment_params[:value],
       comment: asssessment_params[:comment],
       author: current_user
     )
-    redirect_to @user, alert: @assessment.errors.full_messages[0]
+    redirect_to user, alert: @assessment.errors.full_messages[0]
   end
 
   def destroy
@@ -15,6 +16,10 @@ class AssessmentsController < ApplicationController
   end
 
   private
+
+  def user
+    @user ||= User.find(params[:user_id])
+  end
 
   def asssessment_params
     params.require(:assessment).permit(:id, :value, :comment)
