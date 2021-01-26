@@ -6,7 +6,7 @@
 <% @gifts.each do |gift| %>
   <div class="card my-2">
     <div class="card-header d-flex justify-content-between position-relative">
-      <h5 class="card-title"><%= gift.title %></h5>
+      <h5 class="card-title"><%= gift.title %> <small class="fw-lighter">(added by: <%= gift.added_by.first_name %>)</small> </h5>
       <%= link_to '', [user, gift], class: 'stretched-link' %>
       <div>
         <%= link_to 'Edit', edit_user_gift_path(user, gift), class: 'btn btn-primary' %>

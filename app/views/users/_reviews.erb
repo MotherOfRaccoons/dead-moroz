@@ -1,0 +1,46 @@
+<hr>
+<h2 class="fw-light">Reviews:</h2>
+<% user.reviews_on.each do |review| %>
+
+  <div class="card m-1 fs-5">
+    <div class="card-body">
+        <p>
+          <%= review.body %>
+          <%= link_to 'Remove', 
+                      user_reviews_path(user.id, id: review.id), 
+                      method: :delete, 
+                      data: { confirm: "Are you sure?" },
+                      class: 'btn btn-danger position-absolute top-0 end-0 m-3' %>
+        </p>
+        <footer class="blockquote-footer m-0">
+          Added by <%= link_to review.reviewer.first_name, review.reviewer %> on <%= review.created_at.to_date %>
+        </footer>
+    </div>
+  </div>
+<% end %>
+<hr> 
+
+<%= button_tag 'Add a review', 'data-bs-toggle': 'modal', 'data-bs-target': '#review-modal', class: 'btn btn-primary mb-3' %>
+
+<div class="modal fade modal-centered" id="review-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <%= form_with model: [user, user.reviews_on.build], class: "needs-validation", html: { novalidate: true } do |form| %>
+        <div class="modal-body">
+         <%= form.text_area :body, id: 'review-body', class: 'form-control', required: true, minlength: 10, maxlength: 280 %>
+          <div class="invalid-feedback">
+            Review body has to be 10 to 280 characters long.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= form.submit 'Submit a review', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

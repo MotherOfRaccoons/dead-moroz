@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_015905) do
+ActiveRecord::Schema.define(version: 2021_01_22_091357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer "value", limit: 2, null: false
+    t.text "comment"
+    t.bigint "author_id"
+    t.bigint "target_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id", "target_id"], name: "index_assessments_on_author_id_and_target_id", unique: true
+    t.index ["author_id"], name: "index_assessments_on_author_id"
+    t.index ["target_id"], name: "index_assessments_on_target_id"
+  end
 
   create_table "gifts", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.bigint "recipient_id", null: false
-    t.bigint "added_by_id"
+    t.integer "added_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["added_by_id"], name: "index_gifts_on_added_by_id"
@@ -32,6 +44,16 @@ ActiveRecord::Schema.define(version: 2021_01_18_015905) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gift_id"], name: "index_images_on_gift_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "reviewee_id", null: false
+    t.bigint "reviewer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reviewee_id"], name: "index_reviews_on_reviewee_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,7 +76,11 @@ ActiveRecord::Schema.define(version: 2021_01_18_015905) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assessments", "users", column: "author_id"
+  add_foreign_key "assessments", "users", column: "target_id"
   add_foreign_key "gifts", "users", column: "added_by_id"
   add_foreign_key "gifts", "users", column: "recipient_id"
   add_foreign_key "images", "gifts"
+  add_foreign_key "reviews", "users", column: "reviewee_id"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
 end

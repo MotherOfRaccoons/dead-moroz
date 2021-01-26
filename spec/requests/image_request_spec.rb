@@ -10,8 +10,14 @@ RSpec.describe 'Images', type: :request do
     subject(:new_image) { build_stubbed(:image) }
 
     it 'adds an image with valid parameters' do
-      post "/users/#{user.id}/gifts/#{gift.id}/images", params: { image: { image: new_image } }
+      post user_gift_images_path(user, gift), params: { image: { image: new_image } }
       expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+    end
+
+    it 'fails when image is not provided' do
+      post user_gift_images_path(user, gift)
+      follow_redirect!
+      expect(response.body).to include('Choose an image first')
     end
   end
 
@@ -19,7 +25,7 @@ RSpec.describe 'Images', type: :request do
     subject!(:existing_image) { create(:image) }
 
     it 'deletes an existing image' do
-      delete "/users/#{user.id}/gifts/#{gift.id}/images", params: { id: existing_image.id }
+      delete user_gift_images_path(user, gift), params: { id: existing_image.id }
       expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
     end
   end
