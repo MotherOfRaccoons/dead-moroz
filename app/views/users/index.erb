@@ -16,8 +16,8 @@
         <td><%= user.birthdate %></td>
         <td><%= user.email %></td>
         <td>
-          <%= link_to 'Show', user, class: 'btn btn-outline-primary' %>
-          <%= link_to 'Gifts', user_gifts_path(user), class: 'btn btn-outline-primary' %>
+          <%= show_link user, content: 'Show', class: 'btn btn-outline-primary' %>
+          <%= show_link user, link: user_gifts_path(user), content: 'Gifts', class: 'btn btn-outline-primary' %>
         </td>
       </tr> 
     <% end %>

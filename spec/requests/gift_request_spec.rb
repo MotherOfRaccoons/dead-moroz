@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Gifts', type: :request do
   let(:user) { create(:user) }
   let(:gift_attrs) { attributes_for(:gift) }
-  let(:existing_gift) { create(:gift) }
+  let!(:existing_gift) { create(:gift, recipient: user) }
   let(:valid_gift_params) do
     {
       gift: {

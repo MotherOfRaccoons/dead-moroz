@@ -24,7 +24,7 @@ RSpec.describe 'Assessments', type: :request do
   end
 
   describe 'DELETE assessment#destroy' do
-    subject!(:existing_assessment) { create(:assessment) }
+    subject!(:existing_assessment) { create(:assessment, target: user) }
 
     it 'deletes an existing assessment' do
       delete user_assessments_path(user), params: { id: existing_assessment.id }

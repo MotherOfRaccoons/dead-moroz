@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
   helper_method :user
 
   def index
-    @users = User.page(user_params[:page])
+    @users = @users.page(user_params[:page])
   end
 
   def show
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js do
-        @translation = Rails.cache.fetch(['translate', @user.cache_key_with_version], expires_in: 1.hour) do
+        @translation = Rails.cache.fetch(['translate', user.cache_key_with_version], expires_in: 1.hour) do
           GoogleTranslate.translate(@user.behavior)
         end
       end

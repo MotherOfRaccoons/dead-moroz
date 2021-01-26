@@ -1,0 +1,20 @@
+<div class="card m-1 fs-5">
+  <div class="card-header">
+    <div class="rating-stars">
+      <ul id='show-rating' class='m-0'>
+        <% 1.upto(assessment.value) do |i| %>
+          <li class='star' title=<%= i %> data-value=<%= i %>>
+            <i class='fa fa-star fa-fw inactive'></i>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= destroy_link assessment, link: user_assessments_path(user.id, id: assessment.id), content: 'Remove', class: 'btn btn-danger position-absolute top-0 end-0 m-1' %>
+  </div>
+  <div class="card-body">
+    <p><%= assessment.comment %></p>
+    <footer class="blockquote-footer m-0">
+      Added by <%= link_to assessment.author.first_name, assessment.author %> on <%= assessment.created_at.to_date %>
+    </footer>
+  </div>
+</div>

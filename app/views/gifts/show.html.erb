@@ -3,8 +3,8 @@
     <h5 class="card-title"><%= gift.title %></h5>
     <%= link_to '', [user, gift], class: 'stretched-link' %>
     <div>
-      <%= link_to 'Edit', edit_user_gift_path(user, gift), class: 'btn btn-primary' %>
-      <%= link_to 'Remove', [user, gift], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <%= edit_link gift, link: [:edit, user, gift], content: 'Edit', class: 'btn btn-primary' %>
+        <%= destroy_link gift, link: [user, gift], content: 'Remove', class: 'btn btn-danger' %>
     </div>
   </div>
   <% unless gift.description.blank? %>
@@ -17,18 +17,20 @@
     <% @images.each do |image| %>
       <div class="col text-center">
         <%= image_tag image.image.url, size: '300x300', class: 'm-1' %>
-        <%= link_to '',  
-                    user_gift_images_path(user, gift, id: image.id),  
+        <%= link_to '',
+                    user_gift_images_path(user, gift, id: image.id),
                     method: :delete,
                     data: { confirm: 'Are you sure?' },
                     type: 'button',
                     class: 'btn-close align-top' %>
       </div>
-    <% end %>   
+    <% end %>
   </div>
 
-  <%= form_with model: @image, url: user_gift_images_path(user, gift), method: :post do |form| %>
-    <%= form.file_field :image, class: 'form-control mt-3' %>
-    <%= form.submit "Add image", class: 'btn btn-outline-primary btn-lg w-100' %>
+  <% if can? :edit, gift %>
+    <%= form_with model: @image, url: user_gift_images_path(user, gift), method: :post do |form| %>
+      <%= form.file_field :image, class: 'form-control mt-3' %>
+      <%= form.submit "Add image", class: 'btn btn-outline-primary btn-lg w-100' %>
+    <% end %>
   <% end %>
 </div>

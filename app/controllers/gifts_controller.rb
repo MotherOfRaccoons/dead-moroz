@@ -1,9 +1,10 @@
 class GiftsController < ApplicationController
+  load_and_authorize_resource :user
+  load_and_authorize_resource through: :user
+  skip_load_resource only: :create
   helper_method :user, :gift
 
-  def index
-    @gifts = user.gifts
-  end
+  def index; end
 
   def show
     @images = gift.images.all
@@ -11,13 +12,10 @@ class GiftsController < ApplicationController
   end
 
   def new
-    @gift = user.gifts.build
     @gift.images.build
   end
 
-  def edit
-    gift
-  end
+  def edit; end
 
   def create
     @gift = user.gifts.build(title: gift_params[:title], description: gift_params[:description], added_by: current_user)
@@ -45,7 +43,7 @@ class GiftsController < ApplicationController
   private
 
   def user
-    user ||= User.find(params[:user_id])
+    @user ||= User.find(params[:user_id])
   end
 
   def gift

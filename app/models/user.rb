@@ -10,12 +10,15 @@ class User < ApplicationRecord
   has_many :assessments_on,  class_name: 'Assessment', foreign_key: 'target_id', dependent: :destroy, inverse_of: :target
   has_many :assessments_by,  class_name: 'Assessment', foreign_key: 'author_id', dependent: :nullify, inverse_of: :author
 
+  belongs_to :role
+
   validates :first_name,  presence: true, length: { maximum: 25 }
   validates :last_name,   presence: true, length: { maximum: 25 }
   validates :middle_name, length: { maximum: 25 }
   validates :address,     presence: true, length: { maximum: 100 }
   validates :gender,      presence: true
   validates :behavior,    presence: true, length: { minimum: 10, maximum: 280 }
+  before_validation :assign_role
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -24,4 +27,26 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
   paginates_per 10
+
+  def kid?
+    role.name == 'kid'
+  end
+
+  def elf?
+    role.name == 'elf'
+  end
+
+  def santa?
+    role.name == 'santa'
+  end
+
+  def admin?
+    role.name == 'admin'
+  end
+
+  private
+
+  def assign_role
+    self.role = Role.find_by(name: 'kid') if role.nil?
+  end
 end
