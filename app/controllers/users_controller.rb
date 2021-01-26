@@ -9,7 +9,11 @@ class UsersController < ApplicationController
     @assessment = user.assessments_on.find_by(author: current_user)
 
     respond_to do |format|
-      format.js { @translation = GoogleTranslate.translate(@user.cache_key_with_version, @user.behavior) }
+      format.js do
+        @translation = Rails.cache.fetch(['translate', @user.cache_key_with_version], expires_in: 1.hour) do
+          GoogleTranslate.translate(@user.behavior)
+        end
+      end
       format.html
     end
   end
