@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   load_and_authorize_resource through: :gift
+  helper_method :gift
 
   def create
     if image_params[:image].present?
