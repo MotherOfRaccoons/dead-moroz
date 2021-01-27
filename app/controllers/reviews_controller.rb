@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    Review.find(params[:id]).destroy
+    Review.find(params[:id]).discard
     redirect_to user_path(User.find(params[:user_id]))
   end
 
