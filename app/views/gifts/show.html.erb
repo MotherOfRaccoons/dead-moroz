@@ -1,8 +1,9 @@
-<div class="card my-2">
-  <div class="card-header d-flex justify-content-between position-relative">
+<%= link_to "Back to #{ user.first_name }'s gifts", [user, Gift], class: 'btn btn-outline-primary' %>
+<div id="gift-card-<%= gift.id %>" class="card my-2">
+  <div class="card-header d-flex justify-content-between <%= gift_selected_class(gift) %>">
     <h5 class="card-title"><%= gift.title %></h5>
-    <%= link_to '', [user, gift], class: 'stretched-link' %>
     <div>
+        <%= select_gift_link(gift) %>
         <%= edit_link gift, link: [:edit, user, gift], content: 'Edit', class: 'btn btn-primary' %>
         <%= destroy_link gift, link: [user, gift], content: 'Remove', class: 'btn btn-danger' %>
     </div>

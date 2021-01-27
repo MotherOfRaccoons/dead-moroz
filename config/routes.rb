@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :gifts do
+      member do
+        put 'toggle_selected', as: :select
+      end
       resource :images, only: %i[create destroy]
     end
     resource :reviews, only: %i[create destroy]

@@ -1,0 +1,11 @@
+var card_header = $('#gift-card-<%= gift.id %> .card-header');
+var selection_button = $('.btn-selection', card_header);
+card_header.toggleClass('selected');
+selection_button.toggleClass('btn-success');
+selection_button.toggleClass('btn-danger');
+if (selection_button.hasClass('btn-success')) {
+  selection_button.html('Select');
+} else {
+  selection_button.html('Deselect');
+}
+

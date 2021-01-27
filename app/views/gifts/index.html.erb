@@ -4,11 +4,12 @@
 </div>
 
 <% @gifts.each do |gift| %>
-  <div class="card my-2">
-    <div class="card-header d-flex justify-content-between position-relative">
+  <div id="gift-card-<%= gift.id %>" class="card my-2">
+    <div class="card-header d-flex justify-content-between position-relative <%= gift_selected_class(gift) %>">
       <h5 class="card-title"><%= gift.title %> <small class="fw-lighter">(added by: <%= gift_creator(gift) %>)</small> </h5>
       <%= link_to '', [user, gift], class: 'stretched-link' %>
       <div>
+        <%= select_gift_link(gift) %>
         <%= edit_link gift, link: [:edit, user, gift], content: 'Edit', class: 'btn btn-primary' %>
         <%= destroy_link gift, link: [user, gift], content: 'Remove', class: 'btn btn-danger' %>
       </div>
