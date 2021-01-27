@@ -56,6 +56,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'carrierwave', '~> 2.0'
 gem 'devise', '~> 4.7'
+gem 'discard', '~> 1.2'
 gem 'fog-aws'
 gem 'kaminari'
 gem 'rubocop-rails', require: false
