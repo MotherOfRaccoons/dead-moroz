@@ -69,7 +69,7 @@
   <%= label_tag 'behavior' %>
   <%= text_area_tag 'behavior', user.behavior, readonly: true, class: "form-control mt-1" %>
 
-  <%= link_to "To finnish", user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
+  <%= link_to "Translate to finnish", user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
   <div id="translation-spinner" class="spinner-border text-primary m-2 d-none" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
@@ -80,8 +80,8 @@
   <%= link_to 'Gifts', user_gifts_path(user), class: 'btn btn-outline-primary w-100' %>
 </div>
 
-<%= render 'assessments', user: user, assessment: @assessment %>
-<%= render 'reviews', user: user %>
+<%= render('assessments', user: user, assessment: @assessment) if can? :show, Assessment %>
+<%= render('reviews', user: user) if can? :read, Review %>
 
 <%= javascript_pack_tag 'users' %>
 <%= javascript_pack_tag 'validation' %>

@@ -4,22 +4,22 @@
   > li.star {
     display: inline-block;
     padding: 0;
-    > i.fa {
+    > svg {
       font-size: 2em;
       color: #ccc;
     }
   }
 
-  > li.star.hover > i.fa {
+  > li.star.hover > svg {
     color: #FFCC36;
   }
 
-  > li.star.selected > i.fa{
+  > li.star.selected > svg {
       color: #FF912C;
   }
 }
 
-#show-rating li.star i.fa {
+#show-rating li.star svg {
   font-size: 1.5em;
   color: #FF912C;
 }

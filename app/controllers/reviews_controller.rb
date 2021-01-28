@@ -1,16 +1,22 @@
 class ReviewsController < ApplicationController
+  load_and_authorize_resource
+
   def create
-    @user = User.find(params[:user_id])
-    @review = @user.reviews_on.create(body: review_params[:body], reviewer: current_user)
-    redirect_to @user, alert: @review.errors.full_messages_for(:body)[0]
+    @review.reviewee = user
+    @review.save
+    redirect_to user, alert: @review.errors.full_messages_for(:body)[0]
   end
 
   def destroy
     Review.find(params[:id]).discard
-    redirect_to user_path(User.find(params[:user_id]))
+    redirect_to user, notice: 'Review was successfully removed.'
   end
 
   private
+
+  def user
+    @user ||= User.find(params[:user_id])
+  end
 
   def review_params
     params.require(:review).permit(:id, :body)

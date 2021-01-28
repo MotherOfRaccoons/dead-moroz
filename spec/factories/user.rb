@@ -10,5 +10,12 @@ FactoryBot.define do
     password              { Faker::Internet.password(min_length: 6, max_length: 50) }
     password_confirmation { password }
     avatar                { Rack::Test::UploadedFile.new(Rails.root.join('public/placeholder.jpg'), 'image/jpeg') }
+    role                  { 'admin' }
+
+    traits_for_enum(:role)
+
+    trait :no_avatar do
+      avatar { nil }
+    end
   end
 end

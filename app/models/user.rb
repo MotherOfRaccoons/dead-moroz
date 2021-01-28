@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   enum gender: { male: 0, female: 1, non_binary: 2 }
+  enum role: { kid: 0, elf: 1, santa: 2, admin: 3 }
 
   has_many :gifts,       class_name: 'Gift', foreign_key: 'recipient_id', dependent: :destroy, inverse_of: :recipient
   has_many :gifts_added, class_name: 'Gift', foreign_key: 'added_by_id',  dependent: :nullify, inverse_of: :added_by
@@ -16,6 +17,7 @@ class User < ApplicationRecord
   validates :address,     presence: true, length: { maximum: 100 }
   validates :gender,      presence: true
   validates :behavior,    presence: true, length: { minimum: 10, maximum: 280 }
+  validates :role,        presence: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

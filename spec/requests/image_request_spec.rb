@@ -22,7 +22,7 @@ RSpec.describe 'Images', type: :request do
   end
 
   describe 'DELETE images#destroy' do
-    subject!(:existing_image) { create(:image) }
+    subject!(:existing_image) { create(:image, gift: gift) }
 
     it 'deletes an existing image' do
       delete user_gift_images_path(user, gift), params: { id: existing_image.id }

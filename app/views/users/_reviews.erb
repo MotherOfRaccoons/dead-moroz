@@ -20,7 +20,9 @@
 <% end %>
 <hr> 
 
-<%= button_tag 'Add a review', 'data-bs-toggle': 'modal', 'data-bs-target': '#review-modal', class: 'btn btn-primary mb-3' %>
+<% if can? :create, Review %>
+  <%= button_tag 'Add a review', 'data-bs-toggle': 'modal', 'data-bs-target': '#review-modal', class: 'btn btn-primary mb-3' %>
+<% end %>
 
 <div class="modal fade modal-centered" id="review-modal">
   <div class="modal-dialog">
