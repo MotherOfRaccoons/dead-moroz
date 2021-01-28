@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && params[:not_decided] == 'true'
     @users = @users.by_number_of_reviews if current_user.elf?
-    @users = @users.order(sort_column + ' ' + sort_direction).page(user_params[:page])
+    @users = @users.order("#{sort_column} #{sort_direction}").page(user_params[:page])
   end
 
   def show
