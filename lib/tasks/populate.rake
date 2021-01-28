@@ -1,7 +1,4 @@
 if Rails.env.development?
-  require 'factory_bot_rails'
-  require 'faker'
-
   namespace :dev do
     desc 'Sample data for local development environment'
     task populate: 'db:migrate:reset' do
