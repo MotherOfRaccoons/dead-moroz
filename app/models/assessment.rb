@@ -1,4 +1,6 @@
 class Assessment < ApplicationRecord
+  scope :by_elves, -> { joins('JOIN users on assessments.author_id = users.id').where(users: { role: 'elves' }) }
+
   belongs_to :author, class_name: 'User', optional: true, inverse_of: :assessments_by
   belongs_to :target, class_name: 'User', inverse_of: :assessments_on
 
