@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  helper_method :user
+  helper_method :user, :sort_column, :sort_direction
 
   def index
-    @users = @users.page(user_params[:page])
+    @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && params[:not_decided] == 'true'
+    @users = @users.by_number_of_reviews if current_user.elf?
+    @users = @users.order(sort_column + ' ' + sort_direction).page(user_params[:page])
   end
 
   def show
@@ -25,7 +27,15 @@ class UsersController < ApplicationController
     @user ||= User.find(user_params[:id])
   end
 
+  def sort_column
+    %w[first_name last_name birthdate email].include?(user_params[:sort]) ? user_params[:sort] : 'first_name'
+  end
+
+  def sort_direction
+    user_params[:direction] == 'desc' ? 'desc' : 'asc'
+  end
+
   def user_params
-    params.permit(:id, :page)
+    params.permit(:id, :page, :direction, :sort)
   end
 end

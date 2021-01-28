@@ -1,4 +1,11 @@
 class User < ApplicationRecord
+  scope :with_not_decided_gifts, -> { where(role: 'kid')
+                                      .where('id NOT IN (?)', User.select(:id).joins(:gifts).where(gifts: { selected: true })) }
+
+  scope :by_number_of_reviews, -> { joins('JOIN reviews on users.id = reviews.reviewee_id')
+                                    .where(reviews: { discarded_at: nil })
+                                    .group(:id).order('COUNT(reviews.id) ASC')}
+
   enum gender: { male: 0, female: 1, non_binary: 2 }
   enum role: { kid: 0, elf: 1, santa: 2, admin: 3 }
 
