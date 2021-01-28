@@ -4,10 +4,6 @@ RSpec.describe 'Authentication', js: true do
   let(:user) { build_stubbed(:user) }
   let(:registered_user) { create(:user) }
 
-  before do
-    create(:role, name: 'kid')
-  end
-
   it 'lets a user to sign up' do
     visit '/'
     click_link 'Register'

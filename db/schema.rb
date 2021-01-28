@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_160217) do
     t.string "title", null: false
     t.text "description"
     t.bigint "recipient_id", null: false
-    t.integer "added_by_id"
+    t.bigint "added_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["added_by_id"], name: "index_gifts_on_added_by_id"
@@ -58,11 +58,6 @@ ActiveRecord::Schema.define(version: 2021_01_27_160217) do
     t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name", limit: 50, null: false
-    t.text "description"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name", limit: 25, null: false
     t.string "last_name", limit: 25, null: false
@@ -79,10 +74,9 @@ ActiveRecord::Schema.define(version: 2021_01_27_160217) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "avatar"
-    t.bigint "role_id", null: false
+    t.integer "role", limit: 2, default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "assessments", "users", column: "author_id"
@@ -92,5 +86,4 @@ ActiveRecord::Schema.define(version: 2021_01_27_160217) do
   add_foreign_key "images", "gifts"
   add_foreign_key "reviews", "users", column: "reviewee_id"
   add_foreign_key "reviews", "users", column: "reviewer_id"
-  add_foreign_key "users", "roles"
 end
