@@ -7,11 +7,12 @@
         <%= f.file_field :avatar, class: "form-control d-none" %>
         <%= f.hidden_field :avatar_cache, class: "form-control" %>
       </div>
-
-      <div class="text-center">
-        <%= f.label :remove_avatar %>
-        <%= f.check_box :remove_avatar %>
-      </div>
+      <% if remove_avatar %>
+        <div class="text-center">
+          <%= f.label :remove_avatar %>
+          <%= f.check_box :remove_avatar %>
+        </div>
+      <% end %>
     </div>
 
     <div class="col-9">

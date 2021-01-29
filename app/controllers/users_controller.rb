@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  SORTABLE_COLUMNS = %w[first_name last_name birthdate email]
+  SORTABLE_COLUMNS = %w[first_name last_name birthdate email].freeze
 
   load_and_authorize_resource
   helper_method :user, :sort_column, :sort_direction, :sortable_columns

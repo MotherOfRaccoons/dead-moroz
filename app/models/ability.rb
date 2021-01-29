@@ -25,7 +25,8 @@ class Ability
       can %i[create update destroy], Gift, added_by: user
       can :manage, Image, gift: { added_by: user }
       can :manage, Assessment, author: user
-      can :manage, Review
+      can :create, Review, reviewer: user
+      can %i[read destroy], Review
     when 'admin'
       can :manage, :all
     end

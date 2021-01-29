@@ -15,7 +15,7 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <%= render "user_info", f: f, new_account: false %>
+      <%= render "user_info", f: f, new_account: false, remove_avatar: true %>
 
       <div class="col-12">
         <%= f.label :current_password, "Current password* (to confirm the changes)" %>

@@ -89,6 +89,7 @@ RSpec.describe User do
     let(:gift)  { build_stubbed(:gift, added_by: user) }
     let(:image) { build_stubbed(:image, gift: gift) }
     let(:assessment) { build_stubbed(:assessment, author: user) }
+    let(:review)     { build_stubbed(:review, reviewer: user) }
 
     context 'when is a kid' do
       let(:user) { kid }
@@ -99,8 +100,7 @@ RSpec.describe User do
     end
 
     context 'when is an elf' do
-      let(:user)       { elf }
-      let(:review)     { build_stubbed(:review, reviewer: user) }
+      let(:user) { elf }
 
       specify { expect(ability).to be_able_to(:manage, kid) }
       specify { expect(ability).to be_able_to(:read, Gift) }
@@ -117,7 +117,8 @@ RSpec.describe User do
       specify { expect(ability).to be_able_to(:read, kid) }
       specify { expect(ability).to be_able_to(%i[create update destroy], gift) }
       specify { expect(ability).to be_able_to(:manage, assessment) }
-      specify { expect(ability).to be_able_to(:manage, Review) }
+      specify { expect(ability).to be_able_to(:create, review) }
+      specify { expect(ability).to be_able_to(%i[read destroy], Review) }
     end
   end
 end

@@ -26,7 +26,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <%= form_with model: [user, user.assessments_on.build], class: "needs-validation", html: { novalidate: true } do |form| %>
+      <%= form_with model: [user, user.assessments_on.build], id: 'form-rating', class: "needs-validation", html: { novalidate: true } do |form| %>
         <div class="modal-body">
           <%= form.hidden_field :value, id: 'rating', class: 'form-control' %>
           <div class='rating-stars text-center'>

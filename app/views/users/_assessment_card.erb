@@ -1,7 +1,7 @@
 <div class="card m-1 fs-5">
   <div class="card-header">
     <div class="rating-stars">
-      <ul id='show-rating' class='m-0'>
+      <ul class='show-rating m-0'>
         <% 1.upto(assessment.value) do |i| %>
           <li class='star' title=<%= i %> data-value=<%= i %>>
             <i class='fa fa-star fa-fw inactive'></i>
@@ -14,7 +14,7 @@
   <div class="card-body">
     <p><%= assessment.comment %></p>
     <footer class="blockquote-footer m-0">
-      Added by <%= link_to assessment.author.first_name, assessment.author %> on <%= assessment.created_at.to_date %>
+      Added by <%= link_to assessor(assessment), assessment.author %> on <%= assessment.created_at.to_date %>
     </footer>
   </div>
 </div>

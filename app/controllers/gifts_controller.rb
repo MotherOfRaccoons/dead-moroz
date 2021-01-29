@@ -1,6 +1,6 @@
 class GiftsController < ApplicationController
   load_and_authorize_resource :user
-  load_and_authorize_resource through: :user
+  load_and_authorize_resource :gift, through: :user
   skip_load_resource only: :create
   helper_method :user, :gift
 

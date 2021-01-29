@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   check_authorization unless: :devise_controller?
 
   rescue_from CanCan::AccessDenied do
-    redirect_to root_url, alert: 'Access denied!'
+    redirect_back fallback_location: root_path, alert: 'Access denied!'
   end
 
   protected

@@ -6,14 +6,12 @@
     <div class="card-body">
         <p>
           <%= review.body %>
-          <%= link_to 'Remove', 
-                      user_reviews_path(user.id, id: review.id), 
-                      method: :delete, 
-                      data: { confirm: "Are you sure?" },
-                      class: 'btn btn-danger position-absolute top-0 end-0 m-3' %>
+          <%= destroy_link review, link: [user, Review, id: review.id], 
+                                   content: 'Remove',
+                                   class: 'btn btn-danger position-absolute top-0 end-0 m-3' %>
         </p>
         <footer class="blockquote-footer m-0">
-          Added by <%= link_to review.reviewer.first_name, review.reviewer %> on <%= review.created_at.to_date %>
+          Added by <%= link_to reviewer(review), review.reviewer %> on <%= review.created_at.to_date %>
         </footer>
     </div>
   </div>
