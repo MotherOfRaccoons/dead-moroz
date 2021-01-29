@@ -4,7 +4,7 @@
 <table id="table-users" class="table table-striped">
   <thead>
     <tr>
-      <% UserHelper::SORTABLE_COLUMNS.each do |column| %>
+      <% sortable_columns.each do |column| %>
         <th scope="col">
           <%= sortable column, class: 'btn fw-bolder' %>
           <i class="fas <%= sort_icon(column) %>"></i>

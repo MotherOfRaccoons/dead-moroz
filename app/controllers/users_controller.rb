@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  SORTABLE_COLUMNS = %w[first_name last_name birthdate email]
+
   load_and_authorize_resource
-  helper_method :user, :sort_column, :sort_direction
+  helper_method :user, :sort_column, :sort_direction, :sortable_columns
 
   def index
     @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && user_params[:not_decided] == 'true'
@@ -28,11 +30,15 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    UserHelper::SORTABLE_COLUMNS.include?(user_params[:sort]) ? user_params[:sort] : 'first_name'
+    sortable_columns.include?(user_params[:sort]) ? user_params[:sort] : 'first_name'
   end
 
   def sort_direction
     user_params[:direction] == 'desc' ? 'desc' : 'asc'
+  end
+
+  def sortable_columns
+    SORTABLE_COLUMNS
   end
 
   def user_params

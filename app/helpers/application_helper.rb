@@ -19,8 +19,7 @@ module ApplicationHelper
     end
   end
 
-  def sortable(column, title: nil, **options)
-    title ||= column.titleize
+  def sortable(column, title: column.titleize, **options)
     direction = column == params[:sort] && params[:direction] == 'asc' ? 'desc' : 'asc'
     link_to(title, params.permit(:sort, :direction, :not_decided).merge({ sort: column, direction: direction }), options)
   end
@@ -31,8 +30,7 @@ module ApplicationHelper
     sort_direction == 'asc' ? 'fa-sort-up' : 'fa-sort-down'
   end
 
-  def filterable(filter_by, title: nil, **options)
-    title ||= filter_by.titleize
+  def filterable(filter_by, title: filter_by.titleize, **options)
     unfiltered = params[filter_by] != 'true'
     link_to(title,
             params.permit(:sort, :direction, :not_decided).merge({ filter_by.to_sym => unfiltered }),
