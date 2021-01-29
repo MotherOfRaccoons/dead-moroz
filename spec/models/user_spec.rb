@@ -93,7 +93,7 @@ RSpec.describe User do
     context 'when is a kid' do
       let(:user) { kid }
 
-      specify { expect(ability).to be_able_to(:manage, gift) }
+      specify { expect(ability).to be_able_to(:crud, gift) }
       specify { expect(ability).to be_able_to(:show, user) }
       specify { expect(ability).to be_able_to(:manage, image) }
     end

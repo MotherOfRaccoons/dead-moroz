@@ -4,7 +4,9 @@ class GiftsController < ApplicationController
   skip_load_resource only: :create
   helper_method :user, :gift
 
-  def index; end
+  def index
+    @gifts = @gifts.order('created_at DESC')
+  end
 
   def show
     @images = gift.images.all
@@ -38,6 +40,10 @@ class GiftsController < ApplicationController
   def destroy
     gift.destroy
     redirect_to user_gifts_url, notice: 'Gift was successfully removed.'
+  end
+
+  def toggle_selected
+    @gift.toggle(:selected).save
   end
 
   private

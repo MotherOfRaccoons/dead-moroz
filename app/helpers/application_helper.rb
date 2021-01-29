@@ -18,4 +18,22 @@ module ApplicationHelper
       link_to(content, link || [:new, object_class.name.underscore.to_sym], options)
     end
   end
+
+  def sortable(column, title: column.titleize, **options)
+    direction = column == params[:sort] && params[:direction] == 'asc' ? 'desc' : 'asc'
+    link_to(title, params.permit(:sort, :direction, :not_decided).merge({ sort: column, direction: direction }), options)
+  end
+
+  def sort_icon(column)
+    return 'fa-sort' unless sort_column == column
+
+    sort_direction == 'asc' ? 'fa-sort-up' : 'fa-sort-down'
+  end
+
+  def filterable(filter_by, title: filter_by.titleize, **options)
+    unfiltered = params[filter_by] != 'true'
+    link_to(title,
+            params.permit(:sort, :direction, :not_decided).merge({ filter_by.to_sym => unfiltered }),
+            options.merge(class: "#{'active' unless unfiltered} #{options[:class]}"))
+  end
 end

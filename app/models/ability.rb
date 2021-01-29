@@ -4,10 +4,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     case user.role
     when 'kid'
       can :show,   User, id: user.id
-      can :manage, Gift, added_by: user
+      can :crud,   Gift, added_by: user
       can :manage, Image, gift: { added_by: user }
     when 'elf'
       can :manage, User, role: 'kid'
@@ -19,7 +21,7 @@ class Ability
     when 'santa'
       can :index,  User, role: %w[kid elf]
       can :read,   User, role: 'kid'
-      can :read,   Gift
+      can %i[read toggle_selected], Gift
       can %i[create update destroy], Gift, added_by: user
       can :manage, Image, gift: { added_by: user }
       can :manage, Assessment, author: user

@@ -1,10 +1,15 @@
-<table class="table table-hover">
+<% if can? :toggle_selected, Gift %>
+  <%= filterable 'not_decided', title: 'Only Kids with not decided gifts', class: 'btn btn-outline-primary' %>
+<% end %>
+<table id="table-users" class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">First name</th>
-      <th scope="col">Last name</th>
-      <th scope="col">Birthdate</th>
-      <th scope="col">Email</th>
+      <% sortable_columns.each do |column| %>
+        <th scope="col">
+          <%= sortable column, class: 'btn fw-bolder' %>
+          <i class="fas <%= sort_icon(column) %>"></i>
+        </th>
+      <% end %>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -15,7 +20,7 @@
         <td><%= user.last_name %></td>
         <td><%= user.birthdate %></td>
         <td><%= user.email %></td>
-        <td>
+        <td class="text-center">
           <%= show_link user, class: 'btn btn-outline-primary' %>
           <%= show_link user, link: user_gifts_path(user), content: 'Gifts', class: 'btn btn-outline-primary' %>
         </td>
