@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   helper_method :user, :sort_column, :sort_direction
 
   def index
-    @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && params[:not_decided] == 'true'
+    @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && user_params[:not_decided] == 'true'
     @users = @users.by_number_of_reviews if current_user.elf?
     @users = @users.order("#{sort_column} #{sort_direction}").page(user_params[:page])
   end
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    %w[first_name last_name birthdate email].include?(user_params[:sort]) ? user_params[:sort] : 'first_name'
+    UserHelper::SORTABLE_COLUMNS.include?(user_params[:sort]) ? user_params[:sort] : 'first_name'
   end
 
   def sort_direction
@@ -36,6 +36,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:id, :page, :direction, :sort)
+    params.permit(:id, :page, :direction, :sort, :not_decided)
   end
 end

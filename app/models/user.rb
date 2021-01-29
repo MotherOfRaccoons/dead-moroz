@@ -5,7 +5,7 @@ class User < ApplicationRecord
                                  }
 
   scope :by_number_of_reviews, lambda {
-                                 joins('JOIN reviews on users.id = reviews.reviewee_id')
+                                 joins('JOIN reviews ON users.id = reviews.reviewee_id')
                                    .where(reviews: { discarded_at: nil })
                                    .group(:id).order('COUNT(reviews.id) ASC')
                                }

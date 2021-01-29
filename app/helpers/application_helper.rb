@@ -22,7 +22,7 @@ module ApplicationHelper
   def sortable(column, title: nil, **options)
     title ||= column.titleize
     direction = column == params[:sort] && params[:direction] == 'asc' ? 'desc' : 'asc'
-    link_to(title, params.permit(:not_decided).merge({ sort: column, direction: direction }), options)
+    link_to(title, params.permit(:sort, :direction, :not_decided).merge({ sort: column, direction: direction }), options)
   end
 
   def sort_icon(column)
@@ -35,7 +35,7 @@ module ApplicationHelper
     title ||= filter_by.titleize
     unfiltered = params[filter_by] != 'true'
     link_to(title,
-            params.permit(:sort).merge({ filter_by.to_sym => unfiltered }),
+            params.permit(:sort, :direction, :not_decided).merge({ filter_by.to_sym => unfiltered }),
             options.merge(class: "#{'active' unless unfiltered} #{options[:class]}"))
   end
 end

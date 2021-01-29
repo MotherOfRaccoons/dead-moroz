@@ -13,7 +13,7 @@ class Ability
       can :manage, Image, gift: { added_by: user }
     when 'elf'
       can :manage, User, role: 'kid'
-      can :crud,   Gift
+      can :read,   Gift
       can %i[create update destroy], Gift, added_by: user
       can :manage, Image, gift: { added_by: user }
       can %i[show create destroy], Assessment, author: user
