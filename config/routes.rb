@@ -1,7 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq'
+  authenticate :user, ->(user) { Rails.env.development? || user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   root 'home#index'
   devise_for :users

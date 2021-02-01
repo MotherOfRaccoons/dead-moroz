@@ -14,7 +14,7 @@ Sidekiq.configure_client do |config|
   end
 
   Rails.application.config.after_initialize do
-    date = DateTime.parse(1.year.from_now.strftime("%Y-01-01"))
+    date = DateTime.parse(1.year.from_now.strftime('%Y-01-01'))
     AnnualGiftRemovalWorker.perform_at(date)
   end
 end
