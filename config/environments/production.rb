@@ -68,10 +68,15 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "dead_moroz_production"
 
   config.action_mailer.perform_caching = false
-
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    authentication: :plain,
+    address: Rails.application.credentials.dig(:mailgun, :address),
+    port: Rails.application.credentials.dig(:mailgun, :port),
+    domain: Rails.application.credentials.dig(:mailgun, :domain),
+    user_name: Rails.application.credentials.dig(:mailgun, :user_name),
+    password: Rails.application.credentials.dig(:mailgun, :password)
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
