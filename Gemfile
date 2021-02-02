@@ -64,4 +64,4 @@ gem 'kaminari'
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
+gem 'sidekiq-scheduler'
