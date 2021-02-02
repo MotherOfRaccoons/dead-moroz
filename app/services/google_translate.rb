@@ -4,7 +4,7 @@ module GoogleTranslate
   def translate(text)
     params = {
       headers: {
-        'x-rapidapi-key': ENV.fetch('X_RAPIDAPI_KEY'),
+        'x-rapidapi-key': Rails.application.credentials.dig(:google_translate_api, :x_rapidapi_key),
         'content-type': 'application/x-www-form-urlencoded'
       },
       body: "q=#{text}&source=en&target=fi"
