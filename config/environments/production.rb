@@ -56,7 +56,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   config.cache_store = :redis_cache_store, {
-    url: ENV.fetch('REDISTOGO_URL'),
+    url: ENV.fetch('REDIS_URL'),
     connect_timeout: 30,
     read_timeout: 0.2,
     write_timeout: 0.2,
