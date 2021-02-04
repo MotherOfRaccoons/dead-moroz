@@ -1,0 +1,31 @@
+<%= render 'invitation_modal', invitation: @invitation %>
+
+<table id="table-invitations" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invitations.each_with_index do |invite, ind| %>
+      <tr>
+        <td><%= invite.email %></td>
+        <td><%= invite.status %></td>
+        <td class="text-center">
+          <p id='invite-link-<%= ind %>' class='d-none'><%= new_user_registration_url token: invite.token %></p>
+          <%= button_tag 'Copy invite link to clipboard', 
+                         type: :button, 
+                         target: "#invite-link-#{ ind }", 
+                         class: 'btn btn-copy btn-outline-primary', 
+                         'data-bs-content': "Copied!" %>
+          <%= destroy_link invite, class: 'btn btn-danger' %>
+        </td>
+      </tr> 
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_pack_tag 'validation' %>
+<%= javascript_pack_tag 'invitations' %>

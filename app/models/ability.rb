@@ -27,6 +27,7 @@ class Ability
       can :manage, Assessment, author: user
       can :create, Review, reviewer: user
       can %i[read destroy], Review
+      can :manage, Invitation
     when 'admin'
       can :manage, :all
     end
