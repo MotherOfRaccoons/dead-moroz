@@ -8,6 +8,8 @@ class InvitationsController < ApplicationController
 
   def create
     if @invitation.save
+      NotificationMailer.elf_invite_email(@invitation.email, new_user_registration_url(token: @invitation.token)).deliver_later
+      InvitationWorker.perform_at(1.day.from_now, @invitation.id, current_user.email)
       redirect_to invitations_path, notice: 'Invite was successfully sent'
     else
       redirect_to invitations_path, alert: @invitation.errors.full_messages_for(:email)[0]
