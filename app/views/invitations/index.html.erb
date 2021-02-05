@@ -3,8 +3,8 @@
 <table id="table-invitations" class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Email</th>
-      <th scope="col">Status</th>
+      <th scope="col"><%= sortable 'email', class: 'btn fw-bolder' %></th>
+      <th scope="col"><%= sortable 'status', class: 'btn fw-bolder' %></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -29,3 +29,5 @@
 
 <%= javascript_pack_tag 'validation' %>
 <%= javascript_pack_tag 'invitations' %>
+
+<%= paginate @invitations %>

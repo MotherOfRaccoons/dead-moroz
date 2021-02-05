@@ -5,4 +5,6 @@ class Invitation < ApplicationRecord
 
   validates :status, presence: true, inclusion: { in: statuses.keys }
   validates :email,  presence: true, uniqueness: { message: 'was already used' }
+
+  paginates_per 10
 end

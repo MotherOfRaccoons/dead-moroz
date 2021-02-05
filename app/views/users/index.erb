@@ -7,7 +7,6 @@
       <% sortable_columns.each do |column| %>
         <th scope="col">
           <%= sortable column, class: 'btn fw-bolder' %>
-          <i class="fas <%= sort_icon(column) %>"></i>
         </th>
       <% end %>
       <th scope="col"></th>

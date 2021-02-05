@@ -1,7 +1,5 @@
 <% if can? :create, Invitation %>
-  <div class="py-2 text-center">
-    <%= button_tag 'Invite an elf', 'data-bs-toggle': 'modal', 'data-bs-target': '#invitation-modal', class: 'btn btn-primary' %>
-  </div>
+    <%= button_tag 'Invite an elf', 'data-bs-toggle': 'modal', 'data-bs-target': '#invitation-modal', class: 'btn btn-success' %>
 <% end %>
 
 <div class="modal fade modal-centered" id="invitation-modal">

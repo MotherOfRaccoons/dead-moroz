@@ -1,8 +1,12 @@
 class InvitationsController < ApplicationController
+  SORTABLE_COLUMNS = %w[status email].freeze
+  include Sortable
+
   load_and_authorize_resource
+  helper_method :sort_column, :sort_direction, :sortable_columns
 
   def index
-    @invitations = @invitations.order(:status)
+    @invitations = @invitations.order("#{sort_column} #{sort_direction}").page(params[:page])
     @invitation = Invitation.new
   end
 
