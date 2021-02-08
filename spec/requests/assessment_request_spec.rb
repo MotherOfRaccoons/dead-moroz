@@ -17,7 +17,7 @@ RSpec.describe 'Assessments', type: :request do
       }
     end
 
-    it 'creates an assessment' do
+    specify do
       post user_assessments_path(user), params: valid_assessment_params
       expect(response).to redirect_to user
     end
@@ -26,7 +26,7 @@ RSpec.describe 'Assessments', type: :request do
   describe 'DELETE assessment#destroy' do
     subject!(:existing_assessment) { create(:assessment, target: user) }
 
-    it 'deletes an existing assessment' do
+    specify do
       delete user_assessments_path(user), params: { id: existing_assessment.id }
       expect(response).to redirect_to user
     end

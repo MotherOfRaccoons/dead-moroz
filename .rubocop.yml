@@ -250,3 +250,6 @@ RSpec/NestedGroups:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 7
+
+RSpec/MessageChain:
+  Enabled: false

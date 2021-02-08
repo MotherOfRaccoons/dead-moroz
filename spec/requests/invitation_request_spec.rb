@@ -23,7 +23,7 @@ RSpec.describe 'Invitations', type: :request do
       }
     end
 
-    it 'creates an invitation' do
+    specify do
       post invitations_path, params: valid_invitation_params
       expect(response).to redirect_to invitations_path
     end
@@ -32,7 +32,7 @@ RSpec.describe 'Invitations', type: :request do
   describe 'DELETE invitation#destroy' do
     subject!(:existing_invitation) { create(:invitation) }
 
-    it 'deletes an existing invitation' do
+    specify do
       delete invitation_path(existing_invitation)
       expect(response).to redirect_to invitations_path
     end

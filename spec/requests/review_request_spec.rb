@@ -16,7 +16,7 @@ RSpec.describe 'Reviews', type: :request do
       }
     end
 
-    it 'creates a review' do
+    specify do
       post user_reviews_path(user), params: valid_review_params
       expect(response).to redirect_to user
     end
@@ -25,7 +25,7 @@ RSpec.describe 'Reviews', type: :request do
   describe 'DELETE review#destroy' do
     subject!(:existing_review) { create(:review) }
 
-    it 'deletes an existing review' do
+    specify do
       delete user_reviews_path(user), params: { id: existing_review.id }
       expect(response).to redirect_to user
     end

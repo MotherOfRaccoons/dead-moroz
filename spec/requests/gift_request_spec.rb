@@ -33,31 +33,39 @@ RSpec.describe 'Gifts', type: :request do
   describe 'POST gifts#create' do
     let(:image) { create(:image) }
 
-    it 'creates a gift with valid parameters' do
-      post user_gifts_path(user), params: valid_gift_params
-      expect(response).to redirect_to action: :index
+    context 'with valid parameters' do
+      specify do
+        post user_gifts_path(user), params: valid_gift_params
+        expect(response).to redirect_to action: :index
+      end
     end
 
-    it 'fails to create a gift with invalid parameters' do
-      post user_gifts_path(user), params: { gift: { title: '', description: '' } }
-      expect(response).to render_template :new
+    context 'with invalid parameters' do
+      specify do
+        post user_gifts_path(user), params: { gift: { title: '', description: '' } }
+        expect(response).to render_template :new
+      end
     end
   end
 
   describe 'PATCH gifts#update' do
-    it 'updates a gift with valid parameters' do
-      patch user_gift_path(user, existing_gift), params: { gift: { description: existing_gift[:description] } }
-      expect(response).to redirect_to assigns(gift_attrs)
+    context 'with valid parameters' do
+      specify do
+        patch user_gift_path(user, existing_gift), params: { gift: { description: existing_gift[:description] } }
+        expect(response).to redirect_to assigns(gift_attrs)
+      end
     end
 
-    it 'fails to update a gift with invalid parameters' do
-      patch user_gift_path(user, existing_gift), params: { gift: { title: '' } }
-      expect(response).to render_template :edit
+    context 'with invalid parameters' do
+      specify do
+        patch user_gift_path(user, existing_gift), params: { gift: { title: '' } }
+        expect(response).to render_template :edit
+      end
     end
   end
 
   describe 'DELETE gifts#destroy' do
-    it 'deletes an existing gift' do
+    specify do
       delete user_gift_path(user, existing_gift)
       expect(response).to redirect_to action: :index
     end

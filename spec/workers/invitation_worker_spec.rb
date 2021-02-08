@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe InvitationWorker, type: :worker do
+  subject(:worker) { described_class.new }
+
   let(:user) { build_stubbed(:user) }
   let(:invitation) { create(:invitation, :pending) }
 
   it 'deliveres an email' do
-    described_class.perform_async(invitation.id, user.email)
-    expect(NotificationMailer.deliveries).not_to be_empty
+    expect(NotificationMailer).to receive_message_chain(:invite_expiration_email, :deliver_later)
+    worker.perform(invitation.id, user.email)
   end
 end

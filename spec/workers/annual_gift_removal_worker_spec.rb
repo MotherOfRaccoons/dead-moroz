@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe AnnualGiftRemovalWorker, type: :worker do
-  before { create(:gift, selected: true) }
+  subject(:worker) { described_class.new }
 
-  let!(:not_selected_gift) { create(:gift) }
+  before do
+    create(:gift, selected: true)
+    create(:gift, selected: false)
+  end
 
   it 'removes selected gifts' do
-    described_class.perform_async
-    expect(Gift.all).to contain_exactly(not_selected_gift)
+    expect { worker.perform }.to change { Gift.selected.count }.by(-1)
   end
 end
