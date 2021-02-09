@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  scope :with_not_decided_gifts, lambda {
-                                   where(role: 'kid')
-                                     .where('id NOT IN (?)', User.select(:id).joins(:gifts).where(gifts: { selected: true }))
-                                 }
-
+  scope :with_decided_gifts,     -> { joins(:gifts).where(gifts: { selected: true }).uniq }
+  scope :with_not_decided_gifts, -> { where.not(id: with_decided_gifts.pluck(:id)) }
+  scope :with_selected_gifts,    -> { joins('JOIN gifts on users.id = added_by_id').where(gifts: { selected: true}).uniq }
   scope :by_number_of_reviews, lambda {
                                  joins('LEFT JOIN reviews ON users.id = reviews.reviewee_id')
                                    .where(reviews: { discarded_at: nil })
