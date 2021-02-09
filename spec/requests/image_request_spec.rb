@@ -10,9 +10,9 @@ RSpec.describe 'Images', type: :request do
     subject(:new_image) { build_stubbed(:image) }
 
     context 'with valid parameters' do
-      specify do
+      it 'redirects to the gift page' do
         post user_gift_images_path(user, gift), params: { image: { image: new_image } }
-        expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+        expect(response).to redirect_to [user, gift]
       end
     end
 
@@ -28,9 +28,9 @@ RSpec.describe 'Images', type: :request do
   describe 'DELETE images#destroy' do
     subject!(:existing_image) { create(:image, gift: gift) }
 
-    specify do
+    it 'redirects to the git page' do
       delete user_gift_images_path(user, gift), params: { id: existing_image.id }
-      expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+      expect(response).to redirect_to [user, gift]
     end
   end
 end

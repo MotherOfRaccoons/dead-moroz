@@ -34,14 +34,14 @@ RSpec.describe 'Gifts', type: :request do
     let(:image) { create(:image) }
 
     context 'with valid parameters' do
-      specify do
+      it 'redirects to the index page' do
         post user_gifts_path(user), params: valid_gift_params
         expect(response).to redirect_to action: :index
       end
     end
 
     context 'with invalid parameters' do
-      specify do
+      it 'renders a :new template' do
         post user_gifts_path(user), params: { gift: { title: '', description: '' } }
         expect(response).to render_template :new
       end
@@ -50,14 +50,14 @@ RSpec.describe 'Gifts', type: :request do
 
   describe 'PATCH gifts#update' do
     context 'with valid parameters' do
-      specify do
+      it 'redirects to the gift page' do
         patch user_gift_path(user, existing_gift), params: { gift: { description: existing_gift[:description] } }
         expect(response).to redirect_to assigns(gift_attrs)
       end
     end
 
     context 'with invalid parameters' do
-      specify do
+      it 'renders an :edit template' do
         patch user_gift_path(user, existing_gift), params: { gift: { title: '' } }
         expect(response).to render_template :edit
       end
@@ -65,7 +65,7 @@ RSpec.describe 'Gifts', type: :request do
   end
 
   describe 'DELETE gifts#destroy' do
-    specify do
+    it 'redirects to the index page' do
       delete user_gift_path(user, existing_gift)
       expect(response).to redirect_to action: :index
     end

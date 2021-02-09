@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+  before_action :verify_invite
+
   def create
-    verify_invite { return }
     super do |resource|
       if invite.present?
         resource.update(role: 'elf')
@@ -13,10 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def verify_invite
     token = params[:invite_token]
-    unless token.blank? || invite.try(:pending?)
-      redirect_to new_user_registration_path, alert: 'Invalid token'
-      yield
-    end
+    redirect_to(new_user_registration_path(token: token), alert: 'Invalid token') unless token.blank? || invite.try(:pending?)
   end
 
   def invite
