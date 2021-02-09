@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   helper_method :user, :sort_column, :sort_direction, :sortable_columns
 
   def index
-    @users = @users.with_not_decided_gifts if can?(:toggle_selected, Gift) && user_params[:not_decided] == 'true'
+    @users = @users.kid.with_not_decided_gifts if can?(:toggle_selected, Gift) && user_params[:not_decided] == 'true'
     @users = @users.by_number_of_reviews if current_user.elf?
     @users = @users.order("#{sort_column} #{sort_direction}").page(user_params[:page])
   end
