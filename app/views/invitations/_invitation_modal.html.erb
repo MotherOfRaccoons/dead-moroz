@@ -1,0 +1,26 @@
+<% if can? :create, Invitation %>
+    <%= button_tag 'Invite an elf', 'data-bs-toggle': 'modal', 'data-bs-target': '#invitation-modal', class: 'btn btn-success' %>
+<% end %>
+
+<div class="modal fade modal-centered" id="invitation-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Invite an elf via email</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <%= form_with model: invitation, class: "needs-validation", html: { novalidate: true } do |f| %>
+        <div class="modal-body">
+          <%= f.email_field :email, class: 'form-control', required: true %>
+          <div class="invalid-feedback">
+            Please enter a valid email address
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit 'Invite', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

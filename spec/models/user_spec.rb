@@ -119,6 +119,7 @@ RSpec.describe User do
       specify { expect(ability).to be_able_to(:manage, assessment) }
       specify { expect(ability).to be_able_to(:create, review) }
       specify { expect(ability).to be_able_to(%i[read destroy], Review) }
+      specify { expect(ability).to be_able_to(:manage, Invitation) }
     end
   end
 end

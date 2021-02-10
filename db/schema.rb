@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_174402) do
+ActiveRecord::Schema.define(version: 2021_02_04_140333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2021_01_27_174402) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gift_id"], name: "index_images_on_gift_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "token"
+    t.integer "status", limit: 2, default: 0, null: false
+    t.string "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_invitations_on_email", unique: true
+    t.index ["token"], name: "index_invitations_on_token", unique: true
   end
 
   create_table "reviews", force: :cascade do |t|

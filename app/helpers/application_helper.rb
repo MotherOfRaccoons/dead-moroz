@@ -21,7 +21,8 @@ module ApplicationHelper
 
   def sortable(column, title: column.titleize, **options)
     direction = column == params[:sort] && params[:direction] == 'asc' ? 'desc' : 'asc'
-    link_to(title, params.permit(:sort, :direction, :not_decided).merge({ sort: column, direction: direction }), options)
+    link_to(title, params.permit(:sort, :direction, :not_decided).merge({ sort: column, direction: direction }), options) +
+      tag.i('', class: "fas #{sort_icon(column)}")
   end
 
   def sort_icon(column)

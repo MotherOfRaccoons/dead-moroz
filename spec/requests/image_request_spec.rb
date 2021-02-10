@@ -9,24 +9,40 @@ RSpec.describe 'Images', type: :request do
   describe 'POST images#create' do
     subject(:new_image) { build_stubbed(:image) }
 
-    it 'adds an image with valid parameters' do
-      post user_gift_images_path(user, gift), params: { image: { image: new_image } }
-      expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+    context 'with valid parameters' do
+      it 'redirects to the gift page' do
+        post user_gift_images_path(user, gift), params: { image: { image: new_image } }
+        expect(response).to redirect_to [user, gift]
+      end
+
+      it 'creates an image' do
+        expect do
+          post user_gift_images_path(user, gift), params: { image: { image: new_image } }
+        end.to change(Image, :count).by(1)
+      end
     end
 
-    it 'fails when image is not provided' do
-      post user_gift_images_path(user, gift)
-      follow_redirect!
-      expect(response.body).to include('Choose an image first')
+    context 'when image is not provided' do
+      specify do
+        post user_gift_images_path(user, gift)
+        follow_redirect!
+        expect(response.body).to include('Choose an image first')
+      end
     end
   end
 
   describe 'DELETE images#destroy' do
     subject!(:existing_image) { create(:image, gift: gift) }
 
-    it 'deletes an existing image' do
+    it 'redirects to the gift page' do
       delete user_gift_images_path(user, gift), params: { id: existing_image.id }
-      expect(response).to redirect_to user_gift_url(user_id: user.id, id: gift.id)
+      expect(response).to redirect_to [user, gift]
+    end
+
+    it 'destoys an image' do
+      expect do
+        delete user_gift_images_path(user, gift), params: { id: existing_image.id }
+      end.to change(Image, :count).by(-1)
     end
   end
 end

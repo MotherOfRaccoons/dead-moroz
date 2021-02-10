@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   resources :users do
     resources :gifts do
@@ -19,4 +19,5 @@ Rails.application.routes.draw do
     resource :reviews, only: %i[create destroy]
     resource :assessments, only: %i[create destroy]
   end
+  resources :invitations, only: %i[index create destroy]
 end
