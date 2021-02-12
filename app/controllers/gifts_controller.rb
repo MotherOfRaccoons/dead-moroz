@@ -44,7 +44,6 @@ class GiftsController < ApplicationController
 
   def toggle_selected
     @gift.toggle(:selected).save
-    head :ok
   end
 
   private
