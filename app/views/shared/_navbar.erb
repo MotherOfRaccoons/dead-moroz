@@ -10,7 +10,7 @@
       <ul class="navbar-nav ms-0">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= show_link current_user, link: user_gifts_path(current_user), content: 'My gifts', class: 'nav-link' %>
+            <%= show_link current_user.gifts.build, link: user_gifts_path(current_user), content: 'My gifts', class: 'nav-link' %>
           </li>
           <li class="nav-item">
             <%= link_to('Users', users_path, class: "nav-link") if can?(:index, User) %>

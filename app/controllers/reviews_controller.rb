@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource through: :user, through_association: :reviews_on
 
   def create
     @review.reviewee = user
