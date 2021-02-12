@@ -29,7 +29,7 @@ RSpec.describe 'Reviews', type: :request do
   end
 
   describe 'DELETE review#destroy' do
-    subject!(:existing_review) { create(:review) }
+    subject!(:existing_review) { create(:review, reviewee: user) }
 
     it 'redirects to the user page' do
       delete user_reviews_path(user), params: { id: existing_review.id }

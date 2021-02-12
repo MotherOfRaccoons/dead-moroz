@@ -1,7 +1,7 @@
 class CongratulationMailer < ApplicationMailer
   HONORIFICS = {
-    'male'       => 'Mr.',
-    'female'     => 'Ms.',
+    'male' => 'Mr.',
+    'female' => 'Ms.',
     'non_binary' => 'Mx.'
   }.freeze
 
