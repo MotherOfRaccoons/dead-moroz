@@ -51,7 +51,8 @@
       <div class="row my-2">
         <div class="col-12">
           <%= f.label :email, new_account ? "Email *" : "", class: "form-label" %>
-          <%= f.email_field :email, class: "form-control", placeholder: "you@example.com", required: true %>
+          <%= f.email_field :email, class: "form-control", placeholder: "you@example.com", required: true, 
+                            value: user_email, readonly: invite.present? %>
           <div class="invalid-feedback">
             Please enter a valid email address.
           </div>
@@ -93,14 +94,16 @@
   </div>
 </div>
 
-<div class="col-12">
-  <%= f.label :behavior, new_account ? "Behavior *" : "", class: "form-label" %>
-  <%= f.text_area :behavior, class: 'form-control mb-3', placeholder: "Tell about yourself.", 
-                  required: true, minlength: 10, maxlength: 280 %>
-  <div class="invalid-feedback">
-    This field should contain at least 10 characters.
+<% if has_behavior %>
+  <div class="col-12">
+    <%= f.label :behavior, new_account ? "Behavior *" : "", class: "form-label" %>
+    <%= f.text_area :behavior, class: 'form-control mb-3', placeholder: "Tell about yourself.", 
+                    required: true, minlength: 10, maxlength: 280 %>
+    <div class="invalid-feedback">
+      This field should contain at least 10 characters.
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="col-6">
   <%= f.label :password, new_account ? "Password *" : "New password", class: "form-label" %>
