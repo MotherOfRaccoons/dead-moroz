@@ -1,7 +1,7 @@
 <hr>
 <h2 class="fw-light">Reviews:</h2>
 <% user.reviews_on.each do |review| %>
-  <% next if review.id.nil? %>
+  <% next if review.new_record? %>
 
   <div class="card m-1 fs-5">
     <div class="card-body">
