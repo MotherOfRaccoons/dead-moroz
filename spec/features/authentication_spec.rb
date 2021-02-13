@@ -51,4 +51,28 @@ RSpec.describe 'Authentication', js: true do
     click_link('Logout')
     expect(page).to have_content 'Signed out successfully'
   end
+
+  context 'via an invite link' do
+    let(:invite) { create(:invitation) }
+
+    it 'lets a use to sign up if valid' do
+      visit new_user_registration_path(token: invite.token)
+      within('form') do
+        fill_in 'user_first_name',            with: user.first_name
+        fill_in 'user_last_name',             with: user.last_name
+        fill_in 'user_address',               with: user.address
+        fill_in 'user_birthdate',             with: user.birthdate
+        fill_in 'user_password',              with: user.password
+        fill_in 'user_password_confirmation', with: user.password_confirmation
+        find('label', text: 'Female').click
+      end
+      click_button 'Sign up'
+      expect(page).to have_content 'You have signed up successfully'
+    end
+
+    it 'shows an error message if invalid' do
+      visit new_user_registration_path(token: 'invalid_token')
+      expect(page).to have_content 'Invalid token'
+    end
+  end
 end
