@@ -52,7 +52,7 @@
         <div class="col-12">
           <%= f.label :email, new_account ? "Email *" : "", class: "form-label" %>
           <%= f.email_field :email, class: "form-control", placeholder: "you@example.com", required: true, 
-                            value: user_email, readonly: invite.present? %>
+                            value: user_email(@user, invite), readonly: invite.present? %>
           <div class="invalid-feedback">
             Please enter a valid email address.
           </div>
@@ -94,7 +94,7 @@
   </div>
 </div>
 
-<% if has_behavior %>
+<% if user_behavior?(invite) %>
   <div class="col-12">
     <%= f.label :behavior, new_account ? "Behavior *" : "", class: "form-label" %>
     <%= f.text_area :behavior, class: 'form-control mb-3', placeholder: "Tell about yourself.", 

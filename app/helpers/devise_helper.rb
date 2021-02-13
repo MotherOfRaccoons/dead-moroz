@@ -9,11 +9,11 @@ module DeviseHelper
     user_signed_in? ? current_user.avatar.url : PLACEHOLDER_AVATAR
   end
 
-  def user_email
-    invite.try(:email) || @user.email
+  def user_email(user, invite)
+    invite.try(:email) || user.email
   end
 
-  def has_behavior
+  def user_behavior?(invite)
     current_user.try(:kid?) || (current_user.nil? && invite.nil?)
   end
 end
