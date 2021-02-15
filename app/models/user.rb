@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :middle_name, length: { maximum: 25 }
   validates :address,     presence: true, length: { maximum: 100 }
   validates :gender,      presence: true
-  validates :behavior,    presence: true, length: { minimum: 10, maximum: 280 }
+  validates :behavior,    length: { maximum: 280 }
   validates :role,        presence: true
 
   # Include default devise modules. Others available are:

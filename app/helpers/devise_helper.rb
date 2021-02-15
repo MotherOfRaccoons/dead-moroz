@@ -8,5 +8,13 @@ module DeviseHelper
   def avatar_url
     user_signed_in? ? current_user.avatar.url : PLACEHOLDER_AVATAR
   end
+
+  def user_email(user, invite)
+    invite.try(:email) || user.email
+  end
+
+  def user_behavior?(invite)
+    current_user.try(:kid?) || (current_user.nil? && invite.nil?)
+  end
 end
 

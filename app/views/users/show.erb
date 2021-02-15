@@ -64,17 +64,17 @@
   <%= text_field_tag 'address', user.address, readonly: true, class: "form-control" %>
 </div>
 
-<div class="col-12 my-2">
-  
-  <%= label_tag 'behavior' %>
-  <%= text_area_tag 'behavior', user.behavior, readonly: true, class: "form-control mt-1" %>
+<% if user.kid? %>
+  <div class="col-12 my-2">
+    <%= label_tag 'behavior' %>
+    <%= text_area_tag 'behavior', user.behavior, readonly: true, class: "form-control mt-1" %>
 
-  <%= link_to "Translate to finnish", user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
-  <div id="translation-spinner" class="spinner-border text-primary m-2 d-none" role="status">
-    <span class="visually-hidden">Loading...</span>
+    <%= link_to "Translate to finnish", user, remote: true, id: 'translate', class: 'btn btn-outline-primary mt-2' %>
+    <div id="translation-spinner" class="spinner-border text-primary m-2 d-none" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-  
-</div>
+<% end %>
 
 <div class="col-12 my-2">
   <%= show_link user.gifts.build, link: user_gifts_path(user), content: 'Gifts', class: 'btn btn-outline-primary w-100' %>

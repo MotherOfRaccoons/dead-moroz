@@ -71,8 +71,7 @@ RSpec.describe User do
     end
 
     describe '#behavior' do
-      specify { expect(user).to validate_presence_of(:behavior) }
-      specify { expect(user).to validate_length_of(:behavior).is_at_least(10).is_at_most(280) }
+      specify { expect(user).to validate_length_of(:behavior).is_at_most(280) }
     end
 
     describe '#role' do
