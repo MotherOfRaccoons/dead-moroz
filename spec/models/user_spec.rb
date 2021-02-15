@@ -86,15 +86,15 @@ RSpec.describe User do
 
     let(:kid)   { build_stubbed(:user, :kid) }
     let(:elf)   { build_stubbed(:user, :elf) }
-    let(:gift)  { build_stubbed(:gift, added_by: user) }
+    let(:gift)  { build_stubbed(:gift, added_by: user, recipient: kid) }
     let(:image) { build_stubbed(:image, gift: gift) }
-    let(:assessment) { build_stubbed(:assessment, author: user) }
-    let(:review)     { build_stubbed(:review, reviewer: user) }
+    let(:assessment) { build_stubbed(:assessment, author: user, target: kid) }
+    let(:review)     { build_stubbed(:review, reviewer: user, reviewee: kid) }
 
     context 'when is a kid' do
       let(:user) { kid }
 
-      specify { expect(ability).to be_able_to(:crud, gift) }
+      specify { expect(ability).to be_able_to(%i[index show create update destroy], gift) }
       specify { expect(ability).to be_able_to(:show, user) }
       specify { expect(ability).to be_able_to(:manage, image) }
     end
@@ -102,23 +102,21 @@ RSpec.describe User do
     context 'when is an elf' do
       let(:user) { elf }
 
-      specify { expect(ability).to be_able_to(:manage, kid) }
-      specify { expect(ability).to be_able_to(:read, Gift) }
-      specify { expect(ability).to be_able_to(%i[create update destroy], gift) }
+      specify { expect(ability).to be_able_to(:read, described_class) }
+      specify { expect(ability).to be_able_to(%i[read create update destroy], gift) }
       specify { expect(ability).to be_able_to(:manage, image) }
       specify { expect(ability).to be_able_to(%i[show create destroy], assessment) }
-      specify { expect(ability).to be_able_to(:manage, review) }
+      specify { expect(ability).to be_able_to(%i[show create destroy], review) }
     end
 
     context 'when is the Santa' do
       let(:user) { build_stubbed(:user, :santa) }
 
-      specify { expect(ability).to be_able_to(:index, elf) }
-      specify { expect(ability).to be_able_to(:read, kid) }
-      specify { expect(ability).to be_able_to(%i[create update destroy], gift) }
-      specify { expect(ability).to be_able_to(:manage, assessment) }
+      specify { expect(ability).to be_able_to(:read, described_class) }
+      specify { expect(ability).to be_able_to(%i[read toggle_selected create update destroy], gift) }
+      specify { expect(ability).to be_able_to(%i[read create destroy], assessment) }
       specify { expect(ability).to be_able_to(:create, review) }
-      specify { expect(ability).to be_able_to(%i[read destroy], Review) }
+      specify { expect(ability).to be_able_to(%i[show destroy], Review) }
       specify { expect(ability).to be_able_to(:manage, Invitation) }
     end
   end

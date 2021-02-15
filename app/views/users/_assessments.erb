@@ -14,6 +14,7 @@
 <% if can? :index, Assessment %>
   <h2 class="fw-light">Assessments:</h2>
   <% user.assessments_on.by_elves.each do |assessment| %>
+    <% next if assessment.new_record? %>
     <%= render 'assessment_card', assessment: assessment %>
   <% end %>
 <% end %>

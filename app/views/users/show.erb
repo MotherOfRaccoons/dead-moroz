@@ -77,11 +77,11 @@
 </div>
 
 <div class="col-12 my-2">
-  <%= link_to 'Gifts', user_gifts_path(user), class: 'btn btn-outline-primary w-100' %>
+  <%= show_link user.gifts.build, link: user_gifts_path(user), content: 'Gifts', class: 'btn btn-outline-primary w-100' %>
 </div>
 
-<%= render('assessments', user: user, assessment: @assessment) if can? :show, Assessment %>
-<%= render('reviews', user: user) if can? :read, Review %>
+<%= render('assessments', user: user, assessment: @assessment) if can? :show, user.assessments_on.build %>
+<%= render('reviews', user: user) if can? :show, user.reviews_on.build %>
 
 <%= javascript_pack_tag 'users' %>
 <%= javascript_pack_tag 'validation' %>

@@ -1,10 +1,11 @@
 class GiftsController < ApplicationController
-  load_and_authorize_resource :user
+  load_resource :user
   load_and_authorize_resource through: :user
   skip_load_resource only: :create
   helper_method :user, :gift
 
   def index
+    authorize! :show, user.gifts.build
     @gifts = @gifts.order('created_at DESC')
   end
 
