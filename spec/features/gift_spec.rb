@@ -7,7 +7,7 @@ RSpec.describe 'Gifts', type: :feature, js: true do
   before { sign_in user }
 
   it 'can be added' do
-    visit "users/#{user.id}/gifts"
+    visit user_gifts_path(user.id)
     click_on 'New gift'
     within('form') do
       fill_in 'gift_title',       with: gift_attrs[:title]
@@ -21,7 +21,7 @@ RSpec.describe 'Gifts', type: :feature, js: true do
     subject!(:gift) { create(:gift, recipient: user, added_by: user) }
 
     it 'can be edited' do
-      visit "users/#{user.id}/gifts"
+      visit user_gifts_path(user.id)
       click_on 'Edit'
       within('form') do
         fill_in 'gift_description', with: 'New description'
@@ -31,11 +31,17 @@ RSpec.describe 'Gifts', type: :feature, js: true do
     end
 
     it 'can be removed' do
-      visit "users/#{user.id}/gifts"
+      visit user_gifts_path(user.id)
       accept_confirm do
         click_on 'Remove'
       end
       expect(page).to have_content 'Gift was successfully removed'
+    end
+
+    it 'can be selected' do
+      visit user_gifts_path(user.id)
+      click_on 'Select'
+      expect(page).to have_content 'Deselect'
     end
   end
 end

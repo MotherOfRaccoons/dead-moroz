@@ -94,7 +94,7 @@ RSpec.describe 'Gifts', type: :request do
     describe 'PUT gifts#toggle_selected' do
       it 'selects a gift' do
         expect do
-          put select_user_gift_path(user, existing_gift)
+          put select_user_gift_path(user, existing_gift), xhr: true
         end.to change { Gift.last.selected }.from(false).to(true)
       end
     end

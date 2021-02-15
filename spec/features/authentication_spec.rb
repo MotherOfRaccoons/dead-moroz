@@ -5,7 +5,7 @@ RSpec.describe 'Authentication', js: true do
   let(:registered_user) { create(:user) }
 
   it 'lets a user to sign up' do
-    visit '/'
+    visit root_path
     click_link 'Register'
     within('form') do
       fill_in 'user_first_name',            with: user.first_name
@@ -23,7 +23,7 @@ RSpec.describe 'Authentication', js: true do
   end
 
   it 'lets a registered user to sign in' do
-    visit '/'
+    visit root_path
     click_link('Login')
     within('form') do
       fill_in 'user_email',    with: registered_user.email
@@ -35,7 +35,7 @@ RSpec.describe 'Authentication', js: true do
 
   it 'lets a signed in user to edit profile' do
     sign_in registered_user
-    visit '/'
+    visit root_path
     click_link('Edit profile')
     within('#user_info_form') do
       fill_in 'user_middle_name',      with: 'Johnsonovich'
@@ -47,7 +47,7 @@ RSpec.describe 'Authentication', js: true do
 
   it 'lets a signed in user to sign out' do
     sign_in registered_user
-    visit '/'
+    visit root_path
     click_link('Logout')
     expect(page).to have_content 'Signed out successfully'
   end
